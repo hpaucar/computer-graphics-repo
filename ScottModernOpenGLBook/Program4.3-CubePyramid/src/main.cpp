@@ -2,8 +2,7 @@
 // Name        : Program  C++/OpenGL Application
 // Professor   : Herminio Paucar
 // Version     :
-// Copyright   : Book Computer GraphiCs ProgramminG in openGL with C++
-// Author-Book : V. Scott Gordon and John Clevenger
+ 
 // Description :
 //============================================================================
 
