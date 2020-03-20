@@ -8,11 +8,11 @@
 int main(int argc, char** argv)
 {	
 	Window w(800, 600, "Introducao OpenGL - Design Code Play Repeat!");
-	w.setSecne(std::unique_ptr<MyScene>(new MyScene));
+	w.setScene(std::unique_ptr<MyScene>(new MyScene));
 	
 	while (!w.shouldClose())
 	{
-		w.update();
+		w.updateWindow();
 	}
 
 	return 0;

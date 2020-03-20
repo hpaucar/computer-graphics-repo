@@ -54,7 +54,7 @@ Window::Window(int width, int height , const char* title)
 	m_ShouldClose = false;
 }
 
-void Window::update()
+void Window::updateWindow()
 {
 
 	if (m_Scene)
