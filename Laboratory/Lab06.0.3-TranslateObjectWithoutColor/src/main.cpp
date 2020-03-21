@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : Rotate Triangle Object
+// Name        : Translate Object WithoutColor
 // Professor   : Herminio Paucar
 // Version     :
 // Description :
@@ -36,6 +36,10 @@ GLuint n_Vertices;
 GLuint m_VBO;
 GLuint m_VAO;
 
+bool direction = true;
+float triOffset = 0.0f;
+float triMaxOffset = 0.7f;
+float triIncrement = 0.005f;
 float curAngle = 0.0f;
 
 void init (GLFWwindow* window) {
@@ -97,7 +101,17 @@ void display(GLFWwindow* window, double currentTime) {
 
 	GLuint uniformModel = glGetUniformLocation(renderingProgram, "model");
 
-	curAngle += 0.5f;
+	if (direction) {
+		triOffset += triIncrement;
+	} else {
+		triOffset -= triIncrement;
+	}
+
+	if (std::abs(triOffset) >= triMaxOffset) {
+		direction = !direction;
+	}
+
+	curAngle += 0.05f;
 	if (curAngle >= 360)
 	{
 		curAngle -= 360;
@@ -105,7 +119,9 @@ void display(GLFWwindow* window, double currentTime) {
 
 	// Matriz con elementos de valor 1
 	glm::mat4 model(1.0f);
-	//Giro Antihorario
+	//Movimiento Diagonal
+	model = glm::translate(model, glm::vec3(triOffset, triOffset, 0.0f));
+
 	model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 
 	//Usando UniformMatrix
@@ -115,8 +131,7 @@ void display(GLFWwindow* window, double currentTime) {
 
 	// Use este VAO e suas configurações
 	glBindVertexArray(m_VAO);
-	glPointSize(20.0f);
-    glDrawArrays(GL_POINTS, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
 	glBindVertexArray(0);
 	glUseProgram(0);
 }
@@ -131,7 +146,7 @@ int main(void) {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            //
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
 
-    GLFWwindow* window = glfwCreateWindow(800, 800, "Lab06.0.1: Rotate of Triangle", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(800, 800, "Lab06.0.3: Translate object without color", NULL, NULL);
     glfwMakeContextCurrent(window);
     if (glewInit() != GLEW_OK) {
     	exit(EXIT_FAILURE);

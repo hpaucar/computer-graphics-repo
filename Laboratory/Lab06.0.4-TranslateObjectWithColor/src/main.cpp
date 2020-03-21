@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : Rotate Triangle Object
+// Name        : Move color with object
 // Professor   : Herminio Paucar
 // Version     :
 // Description :
@@ -47,14 +47,24 @@ void init (GLFWwindow* window) {
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
 
-
-    // The first 3 points are to Vertex position of Triangle
-	m_Vertices = new GLfloat[9] {
-		-1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f
+    // Vertex and color of Triangles
+	m_Vertices = new GLfloat[72] {
+		0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,//Triangle 01
+		1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,//Triangle 02
+		-1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		-0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,//Triangle 03
+		-1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+		-0.5f, -1.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,//Triangle 04
+		1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+		0.5f, -1.0f, 0.0f, 1.0f, 1.0f, 1.0f
 	};
-	n_Vertices = 9;
+	n_Vertices = 72;
+	/*************************************************************/
+
 	// Cria um ID na GPU para nosso buffer
 	glGenBuffers(1, &m_VBO);
 
@@ -79,11 +89,22 @@ void init (GLFWwindow* window) {
 			3,			// cada vertice é composto de 3 valores
 			GL_FLOAT,	// cada valor do vértice é do tipo GLfloat
 			GL_FALSE,	// Quer normalizar os dados e converter tudo pra NDC ? ( no nosso caso, já esta tudo correto, então deixamos como FALSE)
-			0 * sizeof(GLfloat),// De quantos em quantos bytes, este atributo é encontrado no buffer ? No nosso caso 3 floats pros vertices + 3 floats pra cor = 6 floats
+			6 * sizeof(GLfloat),// De quantos em quantos bytes, este atributo é encontrado no buffer ? No nosso caso 3 floats pros vertices + 3 floats pra cor = 6 floats
 			(GLvoid*) 0	// Onde está o primeiro valor deste atributo no buffer. Nesse caso, está no início do buffer
 		);
-
 	glEnableVertexAttribArray(0);	// Habilita este atributo
+
+	// Faremos a mesma coisa pra cor de cada vértice
+	glVertexAttribPointer(
+			1,			// Lembra do (layout = 1 ) no vertex shader ? Esse valor indica qual atributo estamos indicando
+			3,			// cada vertice é composto de 3 valores
+			GL_FLOAT,	// cada valor do vértice é do tipo GLfloat
+			GL_FALSE,	// Quer normalizar os dados e converter tudo pra NDC ? ( no nosso caso, já esta tudo correto, então deixamos como FALSE)
+			6 * sizeof(GLfloat),// De quantos em quantos bytes, este atributo é encontrado no buffer ? No nosso caso 3 floats pros vertices + 3 floats pra cor = 6 floats
+			(GLvoid*) (3 * sizeof(GLfloat))	// Onde está o primeiro valor deste atributo no buffer. Nesse caso, 3 floats após o início do buffer
+		);
+
+	glEnableVertexAttribArray(1);		// Habilita este atributo
 
 	glBindVertexArray(0);
 }
@@ -115,8 +136,7 @@ void display(GLFWwindow* window, double currentTime) {
 
 	// Use este VAO e suas configurações
 	glBindVertexArray(m_VAO);
-	glPointSize(20.0f);
-    glDrawArrays(GL_POINTS, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 12);
 	glBindVertexArray(0);
 	glUseProgram(0);
 }
@@ -131,7 +151,7 @@ int main(void) {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            //
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
 
-    GLFWwindow* window = glfwCreateWindow(800, 800, "Lab06.0.1: Rotate of Triangle", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(800, 800, "Lab06.0.4: Translate object with color", NULL, NULL);
     glfwMakeContextCurrent(window);
     if (glewInit() != GLEW_OK) {
     	exit(EXIT_FAILURE);
