@@ -1,8 +1,8 @@
 //============================================================================
-// Name        : Usamos los Shaders para diseñar una figura 2D
+// Name        : Simple Animation using UtilClass
 // Professor   : Herminio Paucar
 // Version     :
-// Description : Utilizamos los Vertex y Fragment Shaders
+// Description :
 //============================================================================
 
 // Include standard headers
@@ -33,7 +33,7 @@ GLuint m_VAO;
 
 using namespace std;
 
-void init (GLFWwindow* window) {
+void init(GLFWwindow *window) {
 
 	// Utils
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
@@ -51,17 +51,19 @@ void init (GLFWwindow* window) {
 
 	// Cria um ID na GPU para nosso buffer
 	glGenBuffers(1, &m_VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 
 	// Cria um ID na GPU para um array de  buffers
 	glGenVertexArrays(1, &m_VAO);
+
 	glBindVertexArray(m_VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 
 	// Reserva memoria na GPU para um TARGET receber dados
 	// Copia esses dados pra essa área de memoria
 	glBufferData(
 			GL_ARRAY_BUFFER,	// TARGET associado ao nosso buffer
-			18 * sizeof(GLfloat),	// tamanho do buffer
+			n_Vertices * sizeof(GLfloat),	// tamanho do buffer
 			m_Vertices,			// Dados a serem copiados pra GPU
 			GL_STATIC_DRAW		// Política de acesso aos dados, para otimização
 		);
@@ -84,17 +86,6 @@ void init (GLFWwindow* window) {
 void display(GLFWwindow* window, double currentTime) {
     glUseProgram(renderingProgram);
 
-    //Obtiene el valor de la variable uniforme "resize"
-    GLuint resizeVal = glGetUniformLocation(renderingProgram, "resize");
-    //Se va actualizar un vector de 2 valores
-	int op = (int) currentTime % 3;
-	if (op == 0)
-		glProgramUniform2f(renderingProgram, resizeVal, 0.25 * W_WIDTH,	0.25 * W_HEIGHT);
-	else if (op == 1)
-		glProgramUniform2f(renderingProgram, resizeVal, 0.5 * W_WIDTH, 0.5 * W_HEIGHT);
-	else
-		glProgramUniform2f(renderingProgram, resizeVal, W_WIDTH, W_HEIGHT);
-
 	// Use este VAO e suas configurações
 	glBindVertexArray(m_VAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -103,30 +94,30 @@ void display(GLFWwindow* window, double currentTime) {
 }
 
 int main(void) {
-    if (!glfwInit()) {
-    	exit(EXIT_FAILURE);
-    }
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  //
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            //
+	if (!glfwInit()) {
+		exit(EXIT_FAILURE);
+	}
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);     //
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
 
-    GLFWwindow* window = glfwCreateWindow(W_WIDTH, W_HEIGHT, "LabShader03: Drawing Tree with Shader", NULL, NULL);
-    glfwMakeContextCurrent(window);
-    if (glewInit() != GLEW_OK) {
-    	exit(EXIT_FAILURE);
-    }
-    glfwSwapInterval(1);
+	GLFWwindow* window = glfwCreateWindow(W_WIDTH, W_HEIGHT, "LabShader01: Draw simple circle", NULL, NULL);	glfwMakeContextCurrent(window);
+	if (glewInit() != GLEW_OK) {
+		exit(EXIT_FAILURE);
+	}
+	glfwSwapInterval(1);
 
-    while (!glfwWindowShouldClose(window)) {
-        init(window);
-        display(window, glfwGetTime());
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
+	init(window);
 
-    glfwDestroyWindow(window);
-    glfwTerminate();
-    exit(EXIT_SUCCESS);
+	while (!glfwWindowShouldClose(window)) {
+		display(window, glfwGetTime());
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+	}
+
+	glfwDestroyWindow(window);
+	glfwTerminate();
+	exit(EXIT_SUCCESS);
 }

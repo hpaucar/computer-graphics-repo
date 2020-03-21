@@ -38,7 +38,7 @@ void init (GLFWwindow* window) {
 	// Utils
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
 
-	// The first 3 points are to Vertex position of Triangle
+    // The first 3 points are to Vertex position of Triangle
     n_Vertices = 18;
     m_Vertices = new GLfloat[18] {
 			-1.0f, -1.0f, 0.0f, //Triangle 01
@@ -85,15 +85,8 @@ void display(GLFWwindow* window, double currentTime) {
     glUseProgram(renderingProgram);
 
     //Obtiene el valor de la variable uniforme "resize"
-    GLuint resizeVal = glGetUniformLocation(renderingProgram, "resize");
-    //Se va actualizar un vector de 2 valores
-	int op = (int) currentTime % 3;
-	if (op == 0)
-		glProgramUniform2f(renderingProgram, resizeVal, 0.25 * W_WIDTH,	0.25 * W_HEIGHT);
-	else if (op == 1)
-		glProgramUniform2f(renderingProgram, resizeVal, 0.5 * W_WIDTH, 0.5 * W_HEIGHT);
-	else
-		glProgramUniform2f(renderingProgram, resizeVal, W_WIDTH, W_HEIGHT);
+    GLuint uResolution = glGetUniformLocation(renderingProgram, "u_resolution");
+	glProgramUniform2f(renderingProgram, uResolution, W_WIDTH, W_HEIGHT);
 
 	// Use este VAO e suas configurações
 	glBindVertexArray(m_VAO);

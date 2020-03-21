@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : Usamos los Shaders para diseñar una figura 2D
+// Name        :
 // Professor   : Herminio Paucar
 // Version     :
 // Description : Utilizamos los Vertex y Fragment Shaders
@@ -35,10 +35,11 @@ using namespace std;
 
 void init (GLFWwindow* window) {
 
+    //renderingProgram = createShaderProgram();
 	// Utils
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
 
-	// The first 3 points are to Vertex position of Triangle
+    // The first 3 points are to Vertex position of Triangle
     n_Vertices = 18;
     m_Vertices = new GLfloat[18] {
 			-1.0f, -1.0f, 0.0f, //Triangle 01
@@ -85,21 +86,14 @@ void display(GLFWwindow* window, double currentTime) {
     glUseProgram(renderingProgram);
 
     //Obtiene el valor de la variable uniforme "resize"
-    GLuint resizeVal = glGetUniformLocation(renderingProgram, "resize");
+    GLuint uTime = glGetUniformLocation(renderingProgram, "u_time");
     //Se va actualizar un vector de 2 valores
-	int op = (int) currentTime % 3;
-	if (op == 0)
-		glProgramUniform2f(renderingProgram, resizeVal, 0.25 * W_WIDTH,	0.25 * W_HEIGHT);
-	else if (op == 1)
-		glProgramUniform2f(renderingProgram, resizeVal, 0.5 * W_WIDTH, 0.5 * W_HEIGHT);
-	else
-		glProgramUniform2f(renderingProgram, resizeVal, W_WIDTH, W_HEIGHT);
+	glProgramUniform1f(renderingProgram, uTime, currentTime);
 
 	// Use este VAO e suas configurações
 	glBindVertexArray(m_VAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);
-
 }
 
 int main(void) {
@@ -112,15 +106,15 @@ int main(void) {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            //
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
 
-    GLFWwindow* window = glfwCreateWindow(W_WIDTH, W_HEIGHT, "LabShader03: Drawing Tree with Shader", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(W_WIDTH, W_HEIGHT, "LabShader02.1: Display Change Color Window", NULL, NULL);
     glfwMakeContextCurrent(window);
     if (glewInit() != GLEW_OK) {
     	exit(EXIT_FAILURE);
     }
     glfwSwapInterval(1);
-
+    init(window);
     while (!glfwWindowShouldClose(window)) {
-        init(window);
+
         display(window, glfwGetTime());
         glfwSwapBuffers(window);
         glfwPollEvents();
