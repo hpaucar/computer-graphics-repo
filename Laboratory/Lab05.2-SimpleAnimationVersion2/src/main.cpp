@@ -52,8 +52,9 @@ void display(GLFWwindow *window, double currentTime) {
 		inc = -0.01f;
 	if (x < -1.0f)
 		inc = 0.01f;
-	//Obtiene el valor de la variable uniforme "offset"
+	//Obtiene el valor de la posición(No su valor) de la variable uniforme "offset"
 	GLuint offsetLoc = glGetUniformLocation(renderingProgram, "offset");
+	//cout<<"OFF1::> "<<offsetLoc<<endl;
 	//Se va actualizar sólo un valor uniforme "1f" flotante
 	glProgramUniform1f(renderingProgram, offsetLoc, x);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
