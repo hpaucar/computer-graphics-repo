@@ -28,8 +28,6 @@
 
 using namespace std;
 
-
-
 //Utils util = Utils();
 float cameraX, cameraY, cameraZ;
 float cubeLocX, cubeLocY, cubeLocZ;
