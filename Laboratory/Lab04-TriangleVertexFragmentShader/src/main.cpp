@@ -189,6 +189,8 @@ void init (GLFWwindow* window) {
 		);
 
 	glEnableVertexAttribArray(1);		// Habilita este atributo
+
+
 	glBindVertexArray(0);
 }
 

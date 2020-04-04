@@ -10,6 +10,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <vector>
 
 // Include GLEW
 #define GLEW_STATIC
@@ -35,6 +36,8 @@ void init(){
 		0.0f, 0.0f, 0.0f
 	};
 
+	std::vector<float> mm = {0.0f, 0.0f, 0.0f};
+
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
@@ -44,7 +47,7 @@ void init(){
 	glBufferData(
 			GL_ARRAY_BUFFER,
 			dimVertices * sizeof(GLfloat),
-			m_Vertices,
+			(void*)&mm,
 			GL_STATIC_DRAW
 		);
 }

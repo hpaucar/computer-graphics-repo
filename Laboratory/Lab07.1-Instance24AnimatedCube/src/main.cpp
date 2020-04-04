@@ -109,13 +109,20 @@ void display(GLFWwindow *window, double currentTime) {
 	glUniform1f(tfLoc, (float) timeFactor);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
-	glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
+	glVertexAttribPointer(
+			0,
+			3,
+			GL_FLOAT,
+			false,
+			0,
+			0);
 	glEnableVertexAttribArray(0);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
 	glDrawArraysInstanced(GL_TRIANGLES, 0, 36, 24);
+	//glDrawArraysInstanced(GL_TRIANGLES, 0, 36, 100000);
 }
 
 //void window_size_callback(GLFWwindow* win, int newWidth, int newHeight) {

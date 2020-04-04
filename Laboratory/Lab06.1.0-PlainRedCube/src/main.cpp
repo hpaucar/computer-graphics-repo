@@ -41,7 +41,7 @@ float aspect;
 glm::mat4 pMat, vMat, mMat, mvMat;
 
 void setupVertices(void) {
-	// Vertex to (6*2) = 12 triangles, (12*3)= 36 points, (36*3) = 108 float values.
+	// Vertex to (2*6) = 12 triangles, (12*3)= 36 points, (36*3) = 108 float values.
 	float vertexPositions[108] = {
 					-1.0f, 1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, -1.0f,
 					1.0f, -1.0f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 1.0f, -1.0f,
