@@ -46,6 +46,8 @@ glm::mat4 pMat, mvMat;
 int dimension;
 
 void setupVertices(void) {
+
+	/*
 	std::vector<Point> xyzrgb;
 	// P0: Punto inicial de donde se graficaran los rectangulos
 	glm::vec3 mPoint = glm::vec3(-10.0f, 10.0f, 0.0f);
@@ -73,15 +75,39 @@ void setupVertices(void) {
 		vxyz[6*i+3] = xyzrgb[i].color.r;
 		vxyz[6*i+4] = xyzrgb[i].color.g;
 		vxyz[6*i+5] = xyzrgb[i].color.b;
-/*
-		cout<<xyzrgb[i].coord.x<<", "
-		<<xyzrgb[i].coord.y<<", "
-		<<xyzrgb[i].coord.z<<", "
-		<<xyzrgb[i].color.x<<", "
-		<<xyzrgb[i].color.y<<", "
-		<<xyzrgb[i].color.z<<"\n";
-*/
 	}
+
+	*/
+
+/*	std::vector<glm::vec3> grillxyz = MyFunctions::getGrillPoints(glm::vec3(0, 10, 0), 10, 2, "xz");
+
+	dimension = grillxyz.size()*3; // 6 value for each point
+	float vxyz[dimension];
+	for(unsigned int i=0; i< grillxyz.size(); i++){
+		vxyz[3*i+0] = grillxyz[i].x;
+		vxyz[3*i+1] = grillxyz[i].y;
+		vxyz[3*i+2] = grillxyz[i].z;
+
+		cout<<"P"<<i<<": "<<grillxyz[i].x<<", "
+		<<grillxyz[i].y<<", "
+		<<grillxyz[i].z<<"\n";
+	}
+*/
+	float vertexPositions[108] = {
+						-1.0f, 1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, -1.0f,
+						1.0f, -1.0f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f, 1.0f, -1.0f,
+						1.0f, -1.0f, -1.0f, 1.0f, -1.0f, 1.0f, 1.0f, 1.0f, -1.0f,
+						1.0f, -1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, -1.0f,
+						1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+						-1.0f, -1.0f, 1.0f, -1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+						-1.0f, -1.0f, 1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f, 1.0f,
+						-1.0f, -1.0f, -1.0f, -1.0f, 1.0f, -1.0f, -1.0f, 1.0f, 1.0f,
+						-1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 1.0f, -1.0f, -1.0f,
+						1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, 1.0f,
+						-1.0f, 1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 1.0f, 1.0f,
+						1.0f, 1.0f, 1.0f, -1.0f, 1.0f, 1.0f, -1.0f, 1.0f, -1.0f,
+				};
+
 
 	glGenVertexArrays(1, &m_VAO);// creates VAO and returns the integer ID
 	glBindVertexArray(m_VAO);
@@ -91,8 +117,8 @@ void setupVertices(void) {
 
 	glBufferData(
 			GL_ARRAY_BUFFER,
-			dimension *sizeof(GLfloat),
-			vxyz,
+			108 *sizeof(GLfloat),
+			vertexPositions,
 			GL_STATIC_DRAW);
 	// select 3 coord to points
 	glVertexAttribPointer(
@@ -100,21 +126,10 @@ void setupVertices(void) {
 			3,
 			GL_FLOAT,
 			GL_FALSE,
-			6 * sizeof(GLfloat),
+			3 * sizeof(GLfloat),
 			(GLvoid*) 0
 		);
 	glEnableVertexAttribArray(0);
-
-	// select next 3 value to color
-	glVertexAttribPointer(
-			1,
-			3,
-			GL_FLOAT,
-			GL_FALSE,
-			6 * sizeof(GLfloat),
-			(GLvoid*) (3 * sizeof(GLfloat))
-		);
-	glEnableVertexAttribArray(1);
 
 	glBindVertexArray(0);
 }
@@ -150,7 +165,6 @@ void display(GLFWwindow *window, double currentTime) {
 	pMat = glm::perspective(PI_F/3.0f, aspect, 1.0f, 100000.0f); // 1.0472 radians == 60 degrees
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
 
-
 	// Move FRONT
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		cameraZ += 0.5f;
@@ -178,10 +192,9 @@ void display(GLFWwindow *window, double currentTime) {
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
-	glBindVertexArray(m_VAO);
-	glDrawArrays(GL_TRIANGLES, 0, dimension/6);
-	glBindVertexArray(0);
-
+	//glBindVertexArray(m_VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	//glBindVertexArray(0);
 }
 
 int main(void) {

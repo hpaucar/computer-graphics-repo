@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : Draw Cube using Planes XY, XZ and YZ
+// Name        : Display Cube using planes with Events
 // Professor   : Herminio Paucar
 // Version     :
 // Description : Display my first Plain Red Cube
@@ -146,6 +146,25 @@ void display(GLFWwindow *window, double currentTime) {
 	pMat = glm::perspective(PI_F/3.0f, aspect, 1.0f, 100000.0f); // 1.0472 radians == 60 degrees
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
 
+	// Move FRONT
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		cameraZ += 0.5f;
+	// Move BACK
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		cameraZ -= 0.5f;
+	// Move RIGHT
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		cameraX += 0.5f;
+	// Move LEFT
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		cameraX -= 0.5f;
+	// Move UP
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		cameraY += 0.5f;
+	// Move DOWN
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		cameraY -= 0.5f;
+
 	mvMat = glm::translate(
 				glm::mat4(1.0f),
 				glm::vec3(-cameraX, -cameraY, -cameraZ));
@@ -169,7 +188,7 @@ int main(void) {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);     //
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
 
-	GLFWwindow *window = glfwCreateWindow(800, 800, "Lab 06.1.1: Draw cube using planes",	NULL, NULL);
+	GLFWwindow *window = glfwCreateWindow(800, 800, "Lab 06.1.2: Draw plannig using planes with events", NULL, NULL);
 	glfwMakeContextCurrent(window);
 	if (glewInit() != GLEW_OK) {
 		exit(EXIT_FAILURE);

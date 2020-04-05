@@ -88,3 +88,41 @@ std::vector<Point> MyFunctions::getRectanglePointsColor(glm::vec3 point0, float 
 
 		return triangles;
 }
+
+std::vector<glm::vec3> MyFunctions::getRectangle4Points(glm::vec3 point0, float width, float height, const char *plane){
+	std::vector<glm::vec3> fourPoints = {point0, point0, point0, point0};
+
+	if(!strcmp(plane, "xy")){
+		fourPoints[1] = glm::vec3(point0.x + width, point0.y, point0.z);
+		fourPoints[2] = glm::vec3(fourPoints[1].x, point0.y - height, point0.z);
+		fourPoints[3] = glm::vec3(point0.x, fourPoints[2].y, point0.z);
+	}else if(!strcmp(plane, "xz")){
+		fourPoints[1] = glm::vec3(point0.x + width, point0.y, point0.z);
+		fourPoints[2] = glm::vec3(fourPoints[1].x, point0.y, point0.z + height);
+		fourPoints[3] = glm::vec3(point0.x, point0.y, fourPoints[2].z);
+	}else if(!strcmp(plane, "yz")){
+		fourPoints[1] = glm::vec3(point0.x, point0.y, point0.z + width);
+		fourPoints[2] = glm::vec3(point0.x, point0.y - height, fourPoints[1].z);
+		fourPoints[3] = glm::vec3(point0.x, fourPoints[2].y, point0.z);
+	}
+
+	return fourPoints;
+}
+
+std::vector<glm::vec3> MyFunctions::getGrillPoints(glm::vec3 p0, float radio, int length, const char *plane){
+	std::vector<glm::vec3> grillPoints;
+
+	glm::vec3 abc;
+	std::vector<glm::vec3> temp;
+	if(!strcmp(plane, "xz")){
+		for (int j = length; j >= -length; j--) {
+			for (int i = length; i >= -length; i--){
+				//M[i][j] = (p0.x - radio*i, p0.y, p0.z - radio*i)
+				grillPoints.push_back(glm::vec3(p0.x - radio*i, p0.y, p0.z - radio*j));
+			}
+		}
+	}
+
+	return grillPoints;
+}
+
