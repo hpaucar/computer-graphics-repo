@@ -1,9 +1,8 @@
 //============================================================================
 // Name        : Program 1, Drawing my first Window
 // Professor   : Herminio Paucar
-// Version     :
-
-// Description : Display my first Context and Windows
+// Description : Aplicacion que muestra un cuadro pintado con amarillo.
+// Usamos las funciones de contexto propios de GLEW y GLFW
 //============================================================================
 
 // Include standard headers
@@ -21,15 +20,8 @@ GLFWwindow* window;
 
 using namespace std;
 
-GLuint m_VAO;
-GLuint m_VBO;
-
 int dimVertices;
 int numberOfVertices;
-
-void init(){
-
-}
 
 void display(double currentTime) {
 	// Clear the screen
@@ -45,26 +37,32 @@ int main( void ){
 	if (!glfwInit()) {
 		exit(EXIT_FAILURE);
 	}
-
+	// Version of Modern OpenGL, example: 3.3
+	// First 3 is VERSION_MAJOR
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	//Second 3 is VERSION_MINOR
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
+	//To make MacOS happy; should not be needed
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
+	// Resizable option of Windows.
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	// Open a window and create its OpenGL context
+	// parameters width, height, title, monitor and share
 	window = glfwCreateWindow(800, 800, "Lab00: Display Context and Window", NULL, NULL);
 
+	// Make windows to Context Current
 	glfwMakeContextCurrent(window);
 
-	// Initialize GLEW
+	// Verify and Initialize GLEW
 	if (glewInit() != GLEW_OK) {
 		exit(EXIT_FAILURE);
 	}
 
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-	init();
+
 	// Check if the window was closed
 	while (!glfwWindowShouldClose(window)) {
 		display(glfwGetTime());
@@ -72,9 +70,6 @@ int main( void ){
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
-	// Cleanup VBO
-	glDeleteBuffers(1, &m_VBO);
-	glDeleteVertexArrays(1, &m_VAO);
 
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();

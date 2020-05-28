@@ -1,8 +1,6 @@
 //============================================================================
 // Name        : Program 1, Drawing one Point
 // Professor   : Herminio Paucar
-// Version     :
-
 // Description : Display my first point
 //============================================================================
 
@@ -22,7 +20,9 @@ GLFWwindow* window;
 
 using namespace std;
 
+// Vertex Array Objects
 GLuint VAO;
+// Vertex Buffer Object
 GLuint VBO;
 
 int dimVertices;
@@ -36,8 +36,6 @@ void init(){
 		0.0f, 0.0f, 0.0f
 	};
 
-	std::vector<float> mm = {0.0f, 0.0f, 0.0f};
-
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
@@ -47,7 +45,7 @@ void init(){
 	glBufferData(
 			GL_ARRAY_BUFFER,
 			dimVertices * sizeof(GLfloat),
-			(void*)&mm,
+			m_Vertices,
 			GL_STATIC_DRAW
 		);
 }
@@ -55,7 +53,7 @@ void init(){
 void display(double currentTime) {
 	// Clear the screen
 	// Dark blue background
-	glClearColor(1.0f, 1.0f, 0.5f, 0.0f);
+	glClearColor(0.0f, 0.0f, 0.5f, 0.0f);
 	glClear( GL_COLOR_BUFFER_BIT);
 
 	// 1rst attribute buffer : vertices
@@ -98,7 +96,7 @@ int main( void ){
 	}
 
 	// Ensure we can capture the escape key being pressed below
-	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+	//glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 	init();
 	// Check if the window was closed
 	while (!glfwWindowShouldClose(window)) {
