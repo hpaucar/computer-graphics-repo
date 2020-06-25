@@ -67,7 +67,7 @@ int main( void ){
 	cout<<"Version de OpenGL configurada: "<<version<<endl;
 
 	// Ensure we can capture the escape key being pressed below
-	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+	//glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
 	// Check if the window was closed
 	while (!glfwWindowShouldClose(window)) {
