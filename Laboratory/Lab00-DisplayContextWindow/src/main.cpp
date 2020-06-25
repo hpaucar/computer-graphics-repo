@@ -60,6 +60,12 @@ int main( void ){
 		exit(EXIT_FAILURE);
 	}
 
+	//Display environment's informations
+	const GLubyte *renderer = glGetString(GL_RENDERER);
+	const GLubyte *version = glGetString(GL_VERSION);
+	cout<<"Renderizador: "<<renderer<<endl;
+	cout<<"Version de OpenGL configurada: "<<version<<endl;
+
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
