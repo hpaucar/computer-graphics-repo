@@ -61,13 +61,13 @@ void display(double currentTime) {
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glVertexAttribPointer(
 			0, // attribute 0. No particular reason for 0, but must match the layout in the shader.
-			3,                  // size
+			dimVertices,        // size
 			GL_FLOAT,           // type
 			GL_FALSE,           // normalized?
 			0,                  // stride
-			(void*) 0            // array buffer offset
+			(void*) 0           // array buffer offset
 	);
-	glPointSize(10.0f);
+	glPointSize(20.0f);
 	// Draw the primitive GL_POINTS
 	glDrawArrays(GL_POINTS, 0, numberOfVertices); // 3 indices starting at 0 -> number of Vertex
 	glDisableVertexAttribArray(0);

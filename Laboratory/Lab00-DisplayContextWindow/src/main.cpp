@@ -16,7 +16,8 @@
 
 // Include GLFW
 #include <GLFW/glfw3.h>
-GLFWwindow* window;
+
+GLFWwindow *window;
 
 using namespace std;
 
@@ -26,9 +27,9 @@ int numberOfVertices;
 void display(double currentTime) {
 	// Clear the screen
 	// background
-	//float m = ((int) currentTime % 2 == 0) ? 0.0f : 1.0f;
-	//glClearColor(1.0f, m, 0.0f, 0.0f);
-	glClearColor(1.0f, 1.0f, 0.5f, 0.0f);
+	float m = ((int) currentTime % 2 == 0) ? 0.0f : 1.0f;
+	glClearColor(1.0f, m, 0.0f, 0.0f);
+	//glClearColor(1.0f, 1.0f, 0.5f, 0.0f);
 	glClear( GL_COLOR_BUFFER_BIT);
 }
 

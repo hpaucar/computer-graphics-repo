@@ -89,14 +89,12 @@ void init (GLFWwindow* window) {
 	glBindVertexArray(0);
 }
 
-void display(GLFWwindow* window, double currentTime) {
+void display(double currentTime) {
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glUseProgram(renderingProgram);
-
-	GLuint uniformModel = glGetUniformLocation(renderingProgram, "model");
 
 	if (direction) {
 		triOffset += triIncrement;
@@ -108,6 +106,7 @@ void display(GLFWwindow* window, double currentTime) {
 		direction = !direction;
 	}
 
+	GLuint uniformModel = glGetUniformLocation(renderingProgram, "model");
 	// Matriz con elementos de valor 1
 	glm::mat4 model(1.0f);
 	//Movimiento Horizontal
@@ -149,7 +148,7 @@ int main(void) {
     init(window);
 
     while (!glfwWindowShouldClose(window)) {
-        display(window, glfwGetTime());
+        display(glfwGetTime());
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

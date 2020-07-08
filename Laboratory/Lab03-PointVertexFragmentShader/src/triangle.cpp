@@ -34,7 +34,7 @@ GLuint createShaderProgram() {
     		"#version 330  \n"
     		"layout (location = 0) in vec3 pos; \n"
     		"void main() { \n"
-    		" gl_Position = vec4(0.4*pos.x, 0.4*pos.y, pos.z, 1.0);	\n"
+    		" gl_Position = vec4(pos.x, pos.y, pos.z, 1.0);	\n"
     		"}";
 
     // Fragment Shader
@@ -74,10 +74,11 @@ GLuint createShaderProgram() {
 
 void init (GLFWwindow* window) {
     renderingProgram = createShaderProgram();
+
     GLfloat vertices[] = {
-			-1.0f, -1.0f, 0.0f,
-			1.0f, -1.0f, 0.0f,
-			0.0f, 1.0f,	0.0f };
+			-1.0f, -1.0f, 0.0f, //P0
+			1.0f, -1.0f, 0.0f, //P1
+			0.0f, 1.0f,	0.0f }; //P2
 
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
@@ -105,10 +106,10 @@ void init (GLFWwindow* window) {
 void display(GLFWwindow* window, double currentTime) {
     // loads the program containing the two compiled shaders into the OpenGL pipeline stages (onto the GPU)
     glUseProgram(renderingProgram);
-    glPointSize(30.0f);
+    //glPointSize(30.0f);
     // initiates pipeline processing
     // mode: GL_POINTS, from 0, one (point)
-    glDrawArrays(GL_POINTS, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
 int main(void) {

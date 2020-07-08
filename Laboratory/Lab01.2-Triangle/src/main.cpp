@@ -46,8 +46,9 @@ void init(double currentTime){
 void display(double currentTime) {
 	// Clear the screen
 	// Dark blue background
-	float m = ((int) currentTime % 2 == 0) ? 0.0f : 1.0f;
-	glClearColor(1.0f, m, 0.0f, 0.0f);
+	//float m = ((int) currentTime % 2 == 0) ? 0.0f : 1.0f;
+	//glClearColor(1.0f, m, 0.0f, 0.0f);
+	glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 	glClear( GL_COLOR_BUFFER_BIT);
 
 	// 1rst attribute buffer : vertices
@@ -55,7 +56,7 @@ void display(double currentTime) {
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 	glVertexAttribPointer(
 			0, // attribute 0. No particular reason for 0, but must match the layout in the shader.
-			3,                  // size
+			numberOfVertices,                  // size
 			GL_FLOAT,           // type
 			GL_FALSE,           // normalized?
 			0,                  // stride

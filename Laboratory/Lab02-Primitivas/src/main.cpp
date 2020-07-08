@@ -17,8 +17,10 @@ GLFWwindow* window;
 using namespace glm;
 
 using namespace std;
-
+// Vertex Array Object
 GLuint m_VAO;
+
+//  Vertex Buffer Object
 GLuint m_VBO;
 
 int dimVertices;
@@ -74,8 +76,9 @@ void init(){
 void display(double currentTime) {
 	// Clear the screen
 	// Dark blue background
-	float m = ((int) currentTime % 2 == 0) ? 0.0f : 1.0f;
-	glClearColor(1.0f, m, 0.0f, 0.0f);
+	//float m = ((int) currentTime % 2 == 0) ? 0.0f : 1.0f;
+	//glClearColor(1.0f, m, 0.0f, 0.0f);
+	glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 	glClear( GL_COLOR_BUFFER_BIT);
 
 	// 1rst attribute buffer : vertices
@@ -89,15 +92,14 @@ void display(double currentTime) {
 			0,                  // stride
 			(void*) 0            // array buffer offset
 	);
-	glPointSize(10.0f);
-	/**** PRIMITIVAS DE OPENGL
-	GLenum mode[11] = {
+	//glPointSize(10.0f);
+	/**** PRIMITIVAS DE OPENGL ******/
+	GLenum mode[7] = {
 				GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP,
-				GL_TRIANGLES, GL_TRIANGLE_STRIP, GL_POLYGON,
-				GL_TRIANGLE_FAN, GL_QUADS, GL_TRIANGLE_STRIP, GL_QUAD_STRIP };
-	******/
+				GL_TRIANGLES, GL_TRIANGLE_FAN, GL_TRIANGLE_STRIP };
+
 	// Draw the primitives !
-	glDrawArrays(GL_POINTS, 0, numberOfVertices); // 3 indices starting at 0 -> number of Vertex
+	glDrawArrays(mode[(int)currentTime%7], 0, numberOfVertices); // 3 indices starting at 0 -> number of Vertex
 
 	glDisableVertexAttribArray(0);
 }
