@@ -77,6 +77,17 @@ void init(){
 			m_Vertices,
 			GL_STATIC_DRAW
 		);
+
+	// 1rst attribute buffer : vertices
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	glVertexAttribPointer(
+		0, // attribute 0. No particular reason for 0, but must match the layout in the shader.
+		3,                  // size
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		0,                  // stride
+		(void*) 0            // array buffer offset
+	);
 }
 
 void display(double currentTime) {
@@ -87,31 +98,19 @@ void display(double currentTime) {
 	glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 	glClear( GL_COLOR_BUFFER_BIT);
 
-	// 1rst attribute buffer : vertices
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glVertexAttribPointer(
-			0, // attribute 0. No particular reason for 0, but must match the layout in the shader.
-			3,                  // size
-			GL_FLOAT,           // type
-			GL_FALSE,           // normalized?
-			0,                  // stride
-			(void*) 0            // array buffer offset
-	);
 	//glPointSize(10.0f);
 	/**** PRIMITIVAS DE OPENGL ******/
 	GLenum mode[7] = {
 				GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP,
 				GL_TRIANGLES, GL_TRIANGLE_FAN, GL_TRIANGLE_STRIP };
 
+	glEnableVertexAttribArray(0);
 	// Draw the primitives !
 	glDrawArrays(mode[(int)currentTime%7], 0, numberOfVertices); // 3 indices starting at 0 -> number of Vertex
-
 	glDisableVertexAttribArray(0);
 }
 
-int main( void )
- {
+int main( void ){
 	// Initialise GLFW
 	if (!glfwInit()) {
 		exit(EXIT_FAILURE);

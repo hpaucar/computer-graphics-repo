@@ -142,26 +142,24 @@ void init (GLFWwindow* window) {
 			0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
 	};
 
-	// Cria um ID na GPU para nosso buffer
-	glGenBuffers(1, &m_VBO);
-
-	// Cria um ID na GPU para um array de  buffers
+	// Crea un ID en la GPU para un array de  buffers
 	glGenVertexArrays(1, &m_VAO);
-
 	glBindVertexArray(m_VAO);
 
+	// Crea un ID en la GPU para nuestro buffer
+	glGenBuffers(1, &m_VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 
-	// Reserva memoria na GPU para um TARGET receber dados
-	// Copia esses dados pra essa área de memoria
+	// Reserva memoria en la GPU para un TARGET recibir datos
+	// Copia esos datos para esa área de memoria
 	glBufferData(
-			GL_ARRAY_BUFFER,	// TARGET associado ao nosso buffer
-			18 * sizeof(GLfloat),	// tamanho do buffer
-			m_Vertices,			// Dados a serem copiados pra GPU
-			GL_STATIC_DRAW		// Política de acesso aos dados, para otimização
+			GL_ARRAY_BUFFER,	// TARGET asociado a nuestro buffer
+			18 * sizeof(GLfloat),	// tamano del buffer
+			m_Vertices,			// Datos a ser copiados para GPU
+			GL_STATIC_DRAW		// Politica de acceso a los datos, para optimizacion
 		);
 
-	// Nesse ponto, ja copiamos nossos dados pra GPU.
+	// En este punto ja copiamos nossos dados pra GPU.
 	// Mas, OpenGL nao faz ideia do que eles representam
 	// Sao 6 vértices ? 3 vérices e 3 cores ?
 	// Os vertices vem antes ou depois das cores ?
@@ -171,12 +169,12 @@ void init (GLFWwindow* window) {
 			0,			// Lembra do (layout = 0 ) no vertex shader ? Esse valor indica qual atributo estamos indicando
 			3,			// cada vertice é composto de 3 valores
 			GL_FLOAT,	// cada valor do vértice é do tipo GLfloat
-			GL_FALSE,	// Quer normalizar os dados e converter tudo pra NDC ? ( no nosso caso, já esta tudo correto, então deixamos como FALSE)
+			GL_FALSE,	// Quer normalizar os dados e converter tudo pra NDC(Normalized Device Coordinates) ? ( no nosso caso, já esta tudo correto, então deixamos como FALSE)
 			6 * sizeof(GLfloat),// De quantos em quantos bytes, este atributo é encontrado no buffer ? No nosso caso 3 floats pros vertices + 3 floats pra cor = 6 floats
 			(GLvoid*) 0	// Onde está o primeiro valor deste atributo no buffer. Nesse caso, está no início do buffer
 		);
 
-	glEnableVertexAttribArray(0);	// Habilita este atributo
+	glEnableVertexAttribArray(0);	// Habilita este atributo Layout 0
 
 	// Faremos a mesma coisa pra cor de cada vértice
 	glVertexAttribPointer(
@@ -188,20 +186,19 @@ void init (GLFWwindow* window) {
 			(GLvoid*) (3 * sizeof(GLfloat))	// Onde está o primeiro valor deste atributo no buffer. Nesse caso, 3 floats após o início do buffer
 		);
 
-	glEnableVertexAttribArray(1);		// Habilita este atributo
+	glEnableVertexAttribArray(1);	// Habilita este atributo Layout 1
 
 
 	glBindVertexArray(0);
 }
 
-void display(GLFWwindow* window, double currentTime) {
+void display(double currentTime) {
     glUseProgram(renderingProgram);
 
-	// Use este VAO e suas configurações
+	// Use este VAO y sus configuraciones
 	glBindVertexArray(m_VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 	glBindVertexArray(0);
-
 }
 
 int main(void) {
@@ -224,7 +221,7 @@ int main(void) {
     init(window);
 
     while (!glfwWindowShouldClose(window)) {
-        display(window, glfwGetTime());
+        display(glfwGetTime());
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
