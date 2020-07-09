@@ -1,3 +1,9 @@
+//============================================================================
+// Name        : Lab 02 Primitives
+// Professor   : Herminio Paucar
+// Version     :
+// Description : Drawing all primitives
+//============================================================================
 // Include standard headers
 #include <iostream>
 #include <stdio.h>

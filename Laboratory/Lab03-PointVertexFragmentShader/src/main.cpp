@@ -79,7 +79,7 @@ void init (GLFWwindow* window) {
 	glBindVertexArray(m_VAO);
 }
 
-void display(GLFWwindow* window, double currentTime) {
+void display(double currentTime) {
     
     // loads the program containing the two compiled shaders into the OpenGL pipeline stages (onto the GPU)
     glUseProgram(renderingProgram);
@@ -111,7 +111,7 @@ int main(void) {
     init(window);
     
     while (!glfwWindowShouldClose(window)) {
-        display(window, glfwGetTime());
+        display(glfwGetTime());
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

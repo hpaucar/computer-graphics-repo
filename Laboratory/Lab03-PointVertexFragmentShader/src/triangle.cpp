@@ -2,7 +2,7 @@
 // Name        : Lab 03 Draw Point
 // Professor   : Herminio Paucar
 // Version     :
-// Description : Drawing POINT using Vertex and Fragment Shader
+// Description : Drawing TRIANGLE using Vertex and Fragment Shader
 //============================================================================
 
 // Include standard headers
