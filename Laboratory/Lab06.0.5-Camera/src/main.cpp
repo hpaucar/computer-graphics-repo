@@ -1,8 +1,8 @@
 //============================================================================
-// Name        : Display Plain Red Cube
+// Name        : Knowing the Camera functions
 // Professor   : Herminio Paucar
 // Version     :
-// Description : Display my first Plain Red Cube
+// Description : Configure my Camera
 //============================================================================
 
 // Include standard headers
@@ -28,33 +28,20 @@
 using namespace std;
 
 float cameraX, cameraY, cameraZ;
-float cubeLocX, cubeLocY, cubeLocZ;
 
 GLuint renderingProgram;
 GLuint m_VBO;
 GLuint m_VAO;
 
 // variable allocation for display
-GLuint mvLoc, projLoc;
 int width, height;
-float aspect;
-glm::mat4 pMat, vMat, mMat, mvMat;
 
 void setupVertices(void) {
-	// Vertex to (2*6) = 12 triangles, (12*3)= 36 points, (36*3) = 108 float values.
-	float vertexPositions[108] = {
-	 -1.0f,  1.0f, -1.0f, -1.0f, -1.0f, -1.0f,  1.0f, -1.0f, -1.0f,
-	  1.0f, -1.0f, -1.0f,  1.0f,  1.0f, -1.0f, -1.0f,  1.0f, -1.0f,
-	  1.0f, -1.0f, -1.0f,  1.0f, -1.0f,  1.0f,  1.0f,  1.0f, -1.0f,
-	  1.0f, -1.0f,  1.0f,  1.0f,  1.0f,  1.0f,  1.0f,  1.0f, -1.0f,
-	  1.0f, -1.0f,  1.0f, -1.0f, -1.0f,  1.0f,  1.0f,  1.0f,  1.0f,
-	 -1.0f, -1.0f,  1.0f, -1.0f,  1.0f,  1.0f,  1.0f,  1.0f,  1.0f,
-	 -1.0f, -1.0f,  1.0f, -1.0f, -1.0f, -1.0f, -1.0f,  1.0f,  1.0f,
-	 -1.0f, -1.0f, -1.0f, -1.0f,  1.0f, -1.0f, -1.0f,  1.0f,  1.0f,
-	 -1.0f, -1.0f,  1.0f,  1.0f, -1.0f,  1.0f,  1.0f, -1.0f, -1.0f,
-	  1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f,  1.0f,
-	 -1.0f,  1.0f, -1.0f,  1.0f,  1.0f, -1.0f,  1.0f,  1.0f,  1.0f,
-	  1.0f,  1.0f,  1.0f, -1.0f,  1.0f,  1.0f, -1.0f,  1.0f, -1.0f
+	// Vertex to (1*6) = 2 triangles.
+	float vertexPositions[9] = {
+		-0.5f, -0.5f, 0.0f,
+		 0.5f, -0.5f, 0.0f,
+ 		 0.0f,  0.5f, 0.0f
 	};
 
 	glGenVertexArrays(1, &m_VAO);// creates VAO and returns the integer ID
@@ -68,16 +55,23 @@ void setupVertices(void) {
 			sizeof(vertexPositions),
 			vertexPositions,
 			GL_STATIC_DRAW);
+
+	glVertexAttribPointer(
+			0,
+			3,
+			GL_FLOAT,
+			GL_FALSE,
+			3 * sizeof(GLfloat),
+			(GLvoid*) 0);
+	glEnableVertexAttribArray(0);	// Habilita este atributo Layout 0
 }
 
 void init(GLFWwindow *window) {
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
+	//position of camera
 	cameraX = 0.0f;
 	cameraY = 0.0f;
-	cameraZ = 8.0f;
-	cubeLocX = 0.0f;
-	cubeLocY = -2.0f;
-	cubeLocZ = 0.0f;
+	cameraZ = 20.0f;
 	setupVertices();
 }
 
@@ -86,23 +80,17 @@ void display(GLFWwindow *window, double currentTime) {
 	glUseProgram(renderingProgram);
 
 	// get locations of uniforms in the shader program
-	mvLoc = glGetUniformLocation(renderingProgram, "mv_matrix");
-	projLoc = glGetUniformLocation(renderingProgram, "proj_matrix");
+	GLuint mvLoc = glGetUniformLocation(renderingProgram, "mv_matrix");
+	GLuint projLoc = glGetUniformLocation(renderingProgram, "proj_matrix");
 
 	// send matrix data to the uniform variables
 	glfwGetFramebufferSize(window, &width, &height);
-	aspect = (float) width / (float) height;
-	pMat = glm::perspective(1.0472f, aspect, 0.1f, 1000.0f); // 1.0472 radians == 60 degrees
+	GLfloat aspect = (float) width / (float) height;
 
-	vMat = glm::translate(
-			glm::mat4(1.0f),
-			glm::vec3(-cameraX, -cameraY, -cameraZ));
-	mMat = glm::translate(
-			glm::mat4(1.0f),
-			glm::vec3(cubeLocX, cubeLocY, cubeLocZ));
-	mvMat = vMat * mMat;
+	glm::mat4 pMat = glm::perspective((float)M_PI/3, aspect, 0.1f, 1000.0f); // 1.0472 radians == 60 degrees
+	glm::mat4 vMat = glm::translate(glm::mat4(1.0f), glm::vec3(-cameraX, -cameraY, -cameraZ));
 
-	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvMat));
+	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(vMat));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);  // makes the 0th buffer "active"
@@ -113,8 +101,8 @@ void display(GLFWwindow *window, double currentTime) {
 	glDepthFunc(GL_LEQUAL);
 
 	//glPointSize(10.0);
-	//glDrawArrays(GL_POINTS, 0, 36);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	//glDrawArrays(GL_POINTS, 0, 3);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
 int main(void) {
@@ -127,7 +115,7 @@ int main(void) {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);     //
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
 
-	GLFWwindow *window = glfwCreateWindow(800, 800, "Lab 06.1: Plain Red Cube",	NULL, NULL);
+	GLFWwindow *window = glfwCreateWindow(800, 800, "Lab 06.0.5: Camera",	NULL, NULL);
 	glfwMakeContextCurrent(window);
 	if (glewInit() != GLEW_OK) {
 		exit(EXIT_FAILURE);

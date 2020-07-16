@@ -96,29 +96,26 @@ void display(double currentTime) {
 
 	glUseProgram(renderingProgram);
 
-	if (direction) {
+	if (direction)
 		triOffset += triIncrement;
-	} else {
+	else
 		triOffset -= triIncrement;
-	}
 
-	if (std::abs(triOffset) >= triMaxOffset) {
+	if (std::abs(triOffset) >= triMaxOffset)
 		direction = !direction;
-	}
 
 	GLuint uniformModel = glGetUniformLocation(renderingProgram, "model");
-	// Matriz con elementos de valor 1
-	glm::mat4 model(1.0f);
+
 	//Movimiento Horizontal
-	model = glm::translate(model, glm::vec3(triOffset, 0.0f, 0.0f));
+	//@Param_first: Identy Matrix, @Param_second: Translate position
+	glm::mat4 model = glm::translate(glm::mat4(1.0), glm::vec3(triOffset, 0.0f, 0.0f));
 	//Movimiento Vertical
-	//model = glm::translate(model, glm::vec3(0.0f, triOffset, 0.0f));
+	//glm::mat4 model = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, triOffset, 0.0f));
 	//Movimiento Diagonal
-	//model = glm::translate(model, glm::vec3(triOffset, triOffset, 0.0f));
+	//glm::mat4 model = glm::translate(glm::mat4(1.0), glm::vec3(triOffset, triOffset, 0.0f));
 
 	//Usando UniformMatrix
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-	//Usando ProgramUniform
 	//glProgramUniformMatrix4fv(renderingProgram, uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 
 	// Use este VAO e suas configurações

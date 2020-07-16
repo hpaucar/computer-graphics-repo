@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : Draw Rectangle using four points and Two Buffers (Elements Buffers).
+// Name        : Draw Rectangle using four points.
 // Professor   : Herminio Paucar.
 // Version     :
 // Description :
