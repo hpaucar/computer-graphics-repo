@@ -38,7 +38,7 @@ GLuint vao[numVAOs];
 GLuint vbo[numVBOs];
 
 // variable allocation for display
-GLuint mvLoc, projLoc;
+GLuint mLoc, projLoc;
 // GLuint mvLoc, projLoc;
 int width, height;
 float aspect;
@@ -105,7 +105,7 @@ void display(GLFWwindow *window, double currentTime) {
 	glUseProgram(renderingProgram);
 
 	projLoc = glGetUniformLocation(renderingProgram, "proj_matrix");
-	mvLoc = glGetUniformLocation(renderingProgram, "mv_matrix");
+	mLoc = glGetUniformLocation(renderingProgram, "mv_matrix");
 
 	// push view matrix onto the stack
 	vMat = glm::translate(glm::mat4(1.0f),
@@ -123,7 +123,7 @@ void display(GLFWwindow *window, double currentTime) {
 	mvStack.top() *= glm::rotate(glm::mat4(1.0f), (float) currentTime,
 			glm::vec3(1.0f, 0.0f, 0.0f));  // sun rotation
 
-	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvStack.top()));
+	glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(mvStack.top()));
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
@@ -142,7 +142,7 @@ void display(GLFWwindow *window, double currentTime) {
 	mvStack.top() *= glm::rotate(glm::mat4(1.0f), (float) currentTime,
 			glm::vec3(0.0, 1.0, 0.0));  // planet rotation
 
-	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvStack.top()));
+	glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(mvStack.top()));
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
@@ -163,7 +163,7 @@ void display(GLFWwindow *window, double currentTime) {
 
 	mvStack.top() *= glm::scale(glm::mat4(1.0f),
 			glm::vec3(0.25f, 0.25f, 0.25f));  // make the moon smaller
-	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvStack.top()));
+	glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(mvStack.top()));
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);

@@ -35,26 +35,32 @@ GLuint m_VBO;
 GLuint m_VAO;
 
 // variable allocation for display
-GLuint mvLoc, projLoc;
+GLuint mLoc, vLoc, projLoc;
 int width, height;
 float aspect;
-glm::mat4 pMat, vMat, mMat, mvMat;
+glm::mat4 pMat, vMat, mMat;
 
 void setupVertices(void) {
 	// Vertex to (2*6) = 12 triangles, (12*3)= 36 points, (36*3) = 108 float values.
 	float vertexPositions[108] = {
-	 -1.0f,  1.0f, -1.0f, -1.0f, -1.0f, -1.0f,  1.0f, -1.0f, -1.0f,
-	  1.0f, -1.0f, -1.0f,  1.0f,  1.0f, -1.0f, -1.0f,  1.0f, -1.0f,
-	  1.0f, -1.0f, -1.0f,  1.0f, -1.0f,  1.0f,  1.0f,  1.0f, -1.0f,
-	  1.0f, -1.0f,  1.0f,  1.0f,  1.0f,  1.0f,  1.0f,  1.0f, -1.0f,
-	  1.0f, -1.0f,  1.0f, -1.0f, -1.0f,  1.0f,  1.0f,  1.0f,  1.0f,
-	 -1.0f, -1.0f,  1.0f, -1.0f,  1.0f,  1.0f,  1.0f,  1.0f,  1.0f,
-	 -1.0f, -1.0f,  1.0f, -1.0f, -1.0f, -1.0f, -1.0f,  1.0f,  1.0f,
-	 -1.0f, -1.0f, -1.0f, -1.0f,  1.0f, -1.0f, -1.0f,  1.0f,  1.0f,
-	 -1.0f, -1.0f,  1.0f,  1.0f, -1.0f,  1.0f,  1.0f, -1.0f, -1.0f,
-	  1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f,  1.0f,
-	 -1.0f,  1.0f, -1.0f,  1.0f,  1.0f, -1.0f,  1.0f,  1.0f,  1.0f,
-	  1.0f,  1.0f,  1.0f, -1.0f,  1.0f,  1.0f, -1.0f,  1.0f, -1.0f
+		//side 01
+	 -1.0f,  1.0f, -1.0f, -1.0f, -1.0f, -1.0f,  1.0f, -1.0f, -1.0f, //Triangle 01
+	  1.0f, -1.0f, -1.0f,  1.0f,  1.0f, -1.0f, -1.0f,  1.0f, -1.0f, //Triangle 02
+	  	//side 02
+	  1.0f, -1.0f, -1.0f,  1.0f, -1.0f,  1.0f,  1.0f,  1.0f, -1.0f, //Triangle 03
+	  1.0f, -1.0f,  1.0f,  1.0f,  1.0f,  1.0f,  1.0f,  1.0f, -1.0f, //Triangle 04
+	    //side 03
+	  1.0f, -1.0f,  1.0f, -1.0f, -1.0f,  1.0f,  1.0f,  1.0f,  1.0f, //Triangle 05
+	 -1.0f, -1.0f,  1.0f, -1.0f,  1.0f,  1.0f,  1.0f,  1.0f,  1.0f, //Triangle 06
+	    //side 04
+	 -1.0f, -1.0f,  1.0f, -1.0f, -1.0f, -1.0f, -1.0f,  1.0f,  1.0f, //Triangle 07
+	 -1.0f, -1.0f, -1.0f, -1.0f,  1.0f, -1.0f, -1.0f,  1.0f,  1.0f, //Triangle 08
+	    //side 05
+	 -1.0f, -1.0f,  1.0f,  1.0f, -1.0f,  1.0f,  1.0f, -1.0f, -1.0f, //Triangle 09
+	  1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f,  1.0f, //Triangle 10
+	    //side 06
+	 -1.0f,  1.0f, -1.0f,  1.0f,  1.0f, -1.0f,  1.0f,  1.0f,  1.0f, //Triangle 11
+	  1.0f,  1.0f,  1.0f, -1.0f,  1.0f,  1.0f, -1.0f,  1.0f, -1.0f  //Triangle 12
 	};
 
 	glGenVertexArrays(1, &m_VAO);// creates VAO and returns the integer ID
@@ -82,27 +88,40 @@ void init(GLFWwindow *window) {
 }
 
 void display(GLFWwindow *window, double currentTime) {
-	glClear(GL_DEPTH_BUFFER_BIT);
 	glUseProgram(renderingProgram);
+    // Clear the screen to black
+    glClearColor(0.02f, 0.00f, 0.15f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_DEPTH_BUFFER_BIT);
 
 	// get locations of uniforms in the shader program
-	mvLoc = glGetUniformLocation(renderingProgram, "mv_matrix");
+	mLoc = glGetUniformLocation(renderingProgram, "m_matrix");
+	vLoc = glGetUniformLocation(renderingProgram, "v_matrix");
 	projLoc = glGetUniformLocation(renderingProgram, "proj_matrix");
 
 	// send matrix data to the uniform variables
 	glfwGetFramebufferSize(window, &width, &height);
 	aspect = (float) width / (float) height;
-	pMat = glm::perspective(1.0472f, aspect, 0.1f, 1000.0f); // 1.0472 radians == 60 degrees
+	pMat = glm::perspective(1.0472f, aspect, 0.1f, 100.0f); // 1.0472 radians == 60 degrees
 
-	vMat = glm::translate(
-			glm::mat4(1.0f),
-			glm::vec3(-cameraX, -cameraY, -cameraZ));
+	//vMat = glm::translate(
+	//		glm::mat4(1.0f),
+	//		glm::vec3(-cameraX, -cameraY, -cameraZ//-(float)currentTime
+	//		));
+
+	// Camera matrix
+	vMat = glm::lookAt(
+			glm::vec3(-cameraX, -cameraY, -cameraZ), // Camera position in World Space
+			glm::vec3(0,0,0), // and looks at the origin
+			glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
+		   );
+
 	mMat = glm::translate(
 			glm::mat4(1.0f),
 			glm::vec3(cubeLocX, cubeLocY, cubeLocZ));
-	mvMat = vMat * mMat;
 
-	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvMat));
+	glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(mMat));
+	glUniformMatrix4fv(vLoc, 1, GL_FALSE, glm::value_ptr(vMat));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);  // makes the 0th buffer "active"

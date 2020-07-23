@@ -108,11 +108,11 @@ void display(double currentTime) {
 
 	//Movimiento Horizontal
 	//@Param_first: Identy Matrix, @Param_second: Translate position
-	glm::mat4 model = glm::translate(glm::mat4(1.0), glm::vec3(triOffset, 0.0f, 0.0f));
+	//glm::mat4 model = glm::translate(glm::mat4(1.0), glm::vec3(triOffset, 0.0f, 0.0f));
 	//Movimiento Vertical
 	//glm::mat4 model = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, triOffset, 0.0f));
 	//Movimiento Diagonal
-	//glm::mat4 model = glm::translate(glm::mat4(1.0), glm::vec3(triOffset, triOffset, 0.0f));
+	glm::mat4 model = glm::translate(glm::mat4(1.0), glm::vec3(triOffset, triOffset, 0.0f));
 
 	//Usando UniformMatrix
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));

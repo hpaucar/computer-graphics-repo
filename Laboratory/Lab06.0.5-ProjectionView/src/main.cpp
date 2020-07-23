@@ -2,7 +2,7 @@
 // Name        : Knowing the Camera functions
 // Professor   : Herminio Paucar
 // Version     :
-// Description : Configure my Camera
+// Description : Configure Projection view
 //============================================================================
 
 // Include standard headers
@@ -27,8 +27,6 @@
 
 using namespace std;
 
-float cameraX, cameraY, cameraZ;
-
 GLuint renderingProgram;
 GLuint m_VBO;
 GLuint m_VAO;
@@ -38,10 +36,15 @@ int width, height;
 
 void setupVertices(void) {
 	// Vertex to (1*6) = 2 triangles.
-	float vertexPositions[9] = {
-		-0.5f, -0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
- 		 0.0f,  0.5f, 0.0f
+	float vertexPositions[18] = {
+	   // positions          // texture coords
+	   0.5f,  0.5f, 0.0f, // top right
+	   0.5f, -0.5f, 0.0f, // bottom right
+	  -0.5f, -0.5f, 0.0f, // bottom left
+
+	  -0.5f,  0.5f, 0.0f,  // top left
+	  -0.5f, -0.5f, 0.0f, // bottom left
+	   0.5f,  0.5f, 0.0f // top right
 	};
 
 	glGenVertexArrays(1, &m_VAO);// creates VAO and returns the integer ID
@@ -68,27 +71,50 @@ void setupVertices(void) {
 
 void init(GLFWwindow *window) {
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
-	//position of camera
-	cameraX = 0.0f;
-	cameraY = 0.0f;
-	cameraZ = 20.0f;
 	setupVertices();
 }
 
 void display(GLFWwindow *window, double currentTime) {
-	glClear(GL_DEPTH_BUFFER_BIT);
 	glUseProgram(renderingProgram);
 
-	// get locations of uniforms in the shader program
-	GLuint projLoc = glGetUniformLocation(renderingProgram, "proj_matrix");
+    // Clear the screen to black
+    glClearColor(0.02f, 0.00f, 0.15f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_DEPTH_BUFFER_BIT);
 
-	// send matrix data to the uniform variables
+	// retrieve the matrix uniform locations
+    GLuint projectionLoc  = glGetUniformLocation(renderingProgram, "projection");
+    GLuint viewLoc  = glGetUniformLocation(renderingProgram, "view");
+    GLuint modelLoc = glGetUniformLocation(renderingProgram, "model");
+
+	// get locations of uniforms in the shader program
 	glfwGetFramebufferSize(window, &width, &height);
 	GLfloat aspect = (float) width / (float) height;
+    float FoV = 45;
+    // Generates a really hard-to-read matrix, but a normal, standard 4x4 matrix nonetheless
+    glm::mat4 projection = glm::perspective(
+        glm::radians(FoV), // The vertical Field of View, in radians: the amount of "zoom". Think "camera lens". Usually between 90° (extra wide) and 30° (quite zoomed in)
+		aspect, // Aspect Ratio. Depends on the size of your window. Notice that 4/3 == 800/600 == 1280/960, sounds familiar ?
+        0.1f,   // Near clipping plane. Keep as big as possible, or you'll get precision issues.
+        100.0f  // Far clipping plane. Keep as little as possible.
+    );
 
-	glm::mat4 pMat = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 10.0f); // 1.0472 radians == 60 degrees
-	//pMat = pMat * glm::mat4(1.0f);
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
+    //Generate view Matrix - CAMARA
+    glm::mat4 view = glm::translate(
+    		glm::mat4(1.0f),
+			glm::vec3(0.0f, 0.0f, -(float)currentTime
+			));
+
+    //Generate model Matrix - OBJETO
+    glm::mat4 model = glm::rotate(
+    		glm::mat4(1.0f),
+			glm::radians((float)currentTime*2.0f),
+			glm::vec3(0.0f, 1.0f, 0.0f)); //Rotate in direction to axis X, Y or Z
+
+    // pass them to the shaders (3 different ways)
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
+    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, &projection[0][0]);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);  // makes the 0th buffer "active"
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0); // associates 0th attribute with buffer
@@ -98,8 +124,8 @@ void display(GLFWwindow *window, double currentTime) {
 	glDepthFunc(GL_LEQUAL);
 
 	//glPointSize(10.0);
-	//glDrawArrays(GL_POINTS, 0, 3);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	//glDrawArrays(GL_POINTS, 0, 6);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 int main(void) {
@@ -112,7 +138,7 @@ int main(void) {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);     //
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
 
-	GLFWwindow *window = glfwCreateWindow(800, 800, "Lab 06.0.5: Camera",	NULL, NULL);
+	GLFWwindow *window = glfwCreateWindow(800, 800, "Lab 06.0.5: Projection view",	NULL, NULL);
 	glfwMakeContextCurrent(window);
 	if (glewInit() != GLEW_OK) {
 		exit(EXIT_FAILURE);

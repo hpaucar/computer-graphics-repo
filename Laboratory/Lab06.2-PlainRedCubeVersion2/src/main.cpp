@@ -63,8 +63,7 @@ void setupVertices(void) {
 
 	glGenBuffers(1, &m_VBO); // creates VBO and returns the integer ID
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-    
-    
+
     // loads the cube vertices into the 0th VBO buffer
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATIC_DRAW);
 }
