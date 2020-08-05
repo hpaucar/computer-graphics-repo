@@ -1,7 +1,8 @@
-#version 150
+#version 450
 in vec2 iPosition;
 in vec3 iColor;
 out vec3 oColor;
+
 void main()
 {
    oColor = iColor;

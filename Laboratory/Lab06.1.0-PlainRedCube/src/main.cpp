@@ -116,9 +116,20 @@ void display(GLFWwindow *window, double currentTime) {
 			glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
 		   );
 
-	mMat = glm::translate(
-			glm::mat4(1.0f),
-			glm::vec3(cubeLocX, cubeLocY, cubeLocZ));
+	//mMat = glm::translate(
+	//		glm::mat4(1.0f),
+	//		glm::vec3(cubeLocX, cubeLocY, cubeLocZ));
+
+	glm::mat4 mMat1 = glm::rotate(
+    		glm::mat4(1.0f),
+			glm::radians((float)currentTime*50.0f),
+			glm::vec3(1.0f, 1.0f, 1.0f)); //Rotate in direction to axis X, Y or Z
+
+    glm::mat4 mMat2 = glm::translate(
+    			glm::mat4(1.0f),
+    			glm::vec3(cubeLocX, cubeLocY, cubeLocZ));
+
+    mMat = mMat2*mMat1;
 
 	glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(mMat));
 	glUniformMatrix4fv(vLoc, 1, GL_FALSE, glm::value_ptr(vMat));

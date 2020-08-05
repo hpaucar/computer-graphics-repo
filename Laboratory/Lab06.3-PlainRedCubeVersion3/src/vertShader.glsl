@@ -8,6 +8,7 @@ uniform mat4 proj_matrix;
 out vec4 varyingColor;  // be interpolated by the rasterizer
 
 void main(void) {
+	// M->V->P, P->MV
     gl_Position = proj_matrix * mv_matrix * vec4(position, 1.0);  // right-to-left
     varyingColor = vec4(position, 1.0) * 0.5 + vec4 (0.5, 0.5, 0.5, 0.5);
 }
