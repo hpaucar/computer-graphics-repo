@@ -60,11 +60,11 @@ float CoefNewton(int n, int k) {
 }
 
 /********************/
-float CurvaBezier(float u, int axis) {
+float CurvaBezier(float t, int axis) {
 	float suma = 0.0;
 	for (int i = 0; i < N; i++) {
-		suma += pcontrol[i][axis] * CoefNewton(N - 1, i) * pow(u, N - 1 - i)
-				* pow(1.0 - u, i);
+		suma += pcontrol[i][axis] * CoefNewton(N - 1, i) * pow(t, N - 1 - i)
+				* pow(1.0 - t, i);
 	}
 	return suma;
 }
@@ -72,9 +72,9 @@ float CurvaBezier(float u, int axis) {
 /********************/
 vector<float> graficaCurvaBezier(void) {
 	vector<float> temp;
-	for (float u = 0.0; u <= 1; u += 0.01) {
-		temp.push_back(CurvaBezier(u, 0));
-		temp.push_back(CurvaBezier(u, 1));
+	for (float t = 0.0; t <= 1; t += 0.01) {
+		temp.push_back(CurvaBezier(t, 0));
+		temp.push_back(CurvaBezier(t, 1));
 	}
 	return temp;
 }

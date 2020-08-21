@@ -577,7 +577,7 @@ void onDisplay()
   size_t offset = 0;  // size_t instead of GLushort to fix 'warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]'
   for (int p = 0; p < TEAPOT_NB_PATCHES; p++)
     for (int i = 0; i < ORDER+1; i++, offset += (ORDER+1)*sizeof(GLushort))
-      //glDrawElements(GL_LINE_LOOP, ORDER+1, GL_UNSIGNED_SHORT, (GLvoid*)offset);
+      glDrawElements(GL_LINE_LOOP, ORDER+1, GL_UNSIGNED_SHORT, (GLvoid*)offset);
 
   glDisableVertexAttribArray(attribute_coord3d);
   glDisableVertexAttribArray(attribute_v_color);
