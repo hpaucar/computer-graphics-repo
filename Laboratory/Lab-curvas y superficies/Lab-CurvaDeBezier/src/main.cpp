@@ -145,6 +145,7 @@ int main(void) {
 
     GLFWwindow* window = glfwCreateWindow(800, 800, "Lab: Draw Bezier Curve", NULL, NULL);
     glfwMakeContextCurrent(window);
+
     if (glewInit() != GLEW_OK) {
     	exit(EXIT_FAILURE);
     }
