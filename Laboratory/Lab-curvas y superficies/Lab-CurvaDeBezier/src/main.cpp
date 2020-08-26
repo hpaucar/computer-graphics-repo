@@ -127,7 +127,7 @@ void display(GLFWwindow* window, double currentTime) {
 	glPointSize(5);
 	glDrawArrays(GL_POINTS, 0, numPointsBz);
 
-	// Draw Curves Points
+	// Draw Curves Surfaces
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO[1]);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), 0);
 	glDrawArrays(GL_LINE_STRIP, 0, nPointsCurveBz);

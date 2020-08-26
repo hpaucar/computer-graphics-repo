@@ -16,10 +16,14 @@
 
 #include <string>
 
+using namespace std;
+
 GLuint m_VAO;
 
 GLuint vbo_surface;
 GLuint vbo_color;
+GLuint vbo_cp;
+
 GLint uniform_mvp;
 
 GLuint program;
@@ -76,6 +80,15 @@ void print(std::string s) {
     std::cout << s << std::endl;
 }
 
+vector<GLfloat> getControlPoints(){
+	vector<GLfloat> temp;
+	for (int i = 0; i < 4; i++)
+		for (int j = 0; j < 4; j++)
+			for (int k = 0; k < 3; k++)
+				temp.push_back(cp[i][j][k]);
+	return temp;
+}
+
 bool init_resources() {
     float u = 0.0, v = 0.0;
     float x, y, z;
@@ -130,6 +143,11 @@ bool init_resources() {
     glBindBuffer(GL_ARRAY_BUFFER, vbo_color);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * ps.size(), colors, GL_STATIC_DRAW);
 
+    vector<GLfloat> controlPoints = getControlPoints();
+    glGenBuffers(1, &vbo_cp);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_cp);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * controlPoints.size(), (void*)&controlPoints[0], GL_STATIC_DRAW);
+
     program = Utils::createShaderProgram("src/basic3.v.glsl", "src/basic3.f.glsl");
 
     attribute_coord3d = glGetAttribLocation(program, "coord3d");
@@ -149,7 +167,7 @@ bool init_resources() {
         std::cout << "No se puede asociar el uniform mvp" << std::endl;
         return false;
     }
-
+    getControlPoints();
     return true;
 }
 
@@ -209,8 +227,17 @@ void onDisplay(){
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo_surface);
     
-    glDrawArrays(GL_POINTS, 0, numPoints);
+    //glDrawArrays(GL_POINTS, 0, numPoints);
+    glDrawArrays(GL_LINE_STRIP, 0, numPoints);
     
+
+	// Draw Control Points
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_cp);
+	glVertexAttribPointer(attribute_coord3d, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glPointSize(10);
+	glDrawArrays(GL_POINTS, 0, 16);
+
+
     glDisableVertexAttribArray(attribute_coord3d);
     glDisableVertexAttribArray(attribute_color);
 }
