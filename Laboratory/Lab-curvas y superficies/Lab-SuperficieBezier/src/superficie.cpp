@@ -1,3 +1,10 @@
+/*
+ *	S: trasladar a la Izquierda
+ *	D: Trasladar a la Derecha
+ *  I: Hacer Zoom In
+ *  J: Hacer Zoom Out.
+ * */
+
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
