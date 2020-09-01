@@ -1,3 +1,7 @@
+/**
+ * For execute, copy the soil2.dll into Debug folder.
+ */
+
 // Include GLEW
 #define GLEW_STATIC
 #include <GL/glew.h>

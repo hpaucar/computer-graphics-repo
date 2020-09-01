@@ -48,7 +48,6 @@ int screen_width = 800, screen_height = 800;
 float dx = 0.0;
 float scale = 1.0;
 
-
 GLfloat cp[4][4][3] = {
     {{0.0, 0.0, 1.0},
      {0.0, 0.0, 0.66},
