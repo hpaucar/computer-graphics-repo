@@ -33,7 +33,8 @@ GLuint brickTexture;
 
 void setupVertices(void) {
 	float pyramidPositions[54] =
-	{ -1.0f, -1.0f,  1.0f,  1.0f, -1.0f,  1.0f,  0.0f,  1.0f,  0.0f, //front
+	{//   (X1, Y1, Z1)         (X2, Y2, Z2)         (X3, Y3, Z3)
+	  -1.0f, -1.0f,  1.0f,  1.0f, -1.0f,  1.0f,  0.0f,  1.0f,  0.0f, //front
 	   1.0f, -1.0f,  1.0f,  1.0f, -1.0f, -1.0f,  0.0f,  1.0f,  0.0f, //right
 	   1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f,  0.0f,  1.0f,  0.0f, //back
 	  -1.0f, -1.0f, -1.0f, -1.0f, -1.0f,  1.0f,  0.0f,  1.0f,  0.0f, //left
@@ -41,12 +42,13 @@ void setupVertices(void) {
 	   1.0f, -1.0f,  1.0f, -1.0f, -1.0f, -1.0f,  1.0f, -1.0f, -1.0f  //RR
 	};
 	float textureCoordinates[36] =
-	{   0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
-		0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
-		0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
-		0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f,
-		0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-		1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f
+	{//  (X1, Y1)    (X2, Y2)    (X3, Y3)
+		0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f, // P0 P1 P3 : front
+		0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f, // P0 P1 P3 : right
+		0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f, // P0 P1 P3 : back
+		0.0f, 0.0f, 1.0f, 0.0f, 0.5f, 1.0f, // P0 P1 P3 : left
+		0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, // P0 P2 P4 : LF
+		1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f  // P2 P0 P1 : RR
 	};
 	glGenVertexArrays(1, vao);
 	glBindVertexArray(vao[0]);
@@ -69,7 +71,7 @@ void init(GLFWwindow* window) {
 	aspect = (float)width / (float)height;
 	pMat = glm::perspective(1.0472f, aspect, 0.1f, 1000.0f);
 
-	brickTexture = Utils::loadTexture("src/brick1upArrow.jpg");
+	brickTexture = Utils::loadTexture("src/brick1.jpg");
 	// SEE Utils.cpp, the "loadTexture()" function, the code before the mipmapping section
 }
 

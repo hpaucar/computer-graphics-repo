@@ -264,17 +264,13 @@ void display(GLFWwindow* window, double currentTime) {
 	GLuint projLoc = glGetUniformLocation(renderingProgram, "projection");
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-
-
 	// render box
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
 	 // camera/view transformation
 	     //   glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 	     //   ourShader.setMat4("view", view);
-
 
     // render boxes
     glBindVertexArray(m_VAO);

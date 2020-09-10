@@ -168,47 +168,43 @@ void setupVertices (GLFWwindow* window) {
 void display(GLFWwindow* window, double currentTime) {
     glUseProgram(renderingProgram);
 
-    // render
-           // ------
-           glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-           glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // also clear the depth buffer now!
+	// render
+	// ------
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // also clear the depth buffer now!
 
-           // bind textures on corresponding texture units
-           glActiveTexture(GL_TEXTURE0);
-           glBindTexture(GL_TEXTURE_2D, texture1);
-           glActiveTexture(GL_TEXTURE1);
-           glBindTexture(GL_TEXTURE_2D, texture2);
+	// bind textures on corresponding texture units
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texture2);
 
+	// create transformations
+	glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+	glm::mat4 view = glm::mat4(1.0f);
+	glm::mat4 projection = glm::mat4(1.0f);
+	model = glm::rotate(model, (float) glfwGetTime(),
+			glm::vec3(0.5f, 1.0f, 0.0f));
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+	projection = glm::perspective(glm::radians(45.0f),
+			(float) SCR_WIDTH / (float) SCR_HEIGHT, 0.1f, 100.0f);
+	// retrieve the matrix uniform locations
+	GLuint modelLoc = glGetUniformLocation(renderingProgram, "model");
+	GLuint viewLoc = glGetUniformLocation(renderingProgram, "view");
+	// pass them to the shaders (3 different ways)
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
+	// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 
+	GLuint projLoc = glGetUniformLocation(renderingProgram, "projection");
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
+	//ourShader.setMat4("projection", projection);
 
-           // create transformations
-                  glm::mat4 model         = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-                  glm::mat4 view          = glm::mat4(1.0f);
-                  glm::mat4 projection    = glm::mat4(1.0f);
-                  model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f));
-                  view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-                  projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-                  // retrieve the matrix uniform locations
-                  GLuint modelLoc = glGetUniformLocation(renderingProgram, "model");
-                  GLuint viewLoc  = glGetUniformLocation(renderingProgram, "view");
-                  // pass them to the shaders (3 different ways)
-                  glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-                  glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
-                  // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+	// render box
 
-                  GLuint projLoc = glGetUniformLocation(renderingProgram, "projection");
-                  glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-                  //ourShader.setMat4("projection", projection);
-
-                  // render box
-
-
-
-
-                  glEnable(GL_DEPTH_TEST);
-                  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glBindVertexArray(m_VAO);
     // Draw a rectangle from the 2 triangles using 6 indices

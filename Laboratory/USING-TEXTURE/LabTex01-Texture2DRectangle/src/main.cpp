@@ -101,7 +101,8 @@ void setupVertices (GLFWwindow* window) {
 	// load image, create texture and generate mipmaps
 	int width, height, nrChannels;
 	// The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-	unsigned char *data = stbi_load("src/container.jpg", &width, &height, &nrChannels, 0);
+	//unsigned char *data = stbi_load("src/container.jpg", &width, &height, &nrChannels, 0);
+	unsigned char *data = stbi_load("src/wall.jpg", &width, &height, &nrChannels, 0);
 	if (data) {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
