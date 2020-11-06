@@ -16,7 +16,6 @@
 
 // Include GLFW
 #include <GLFW/glfw3.h>
-GLFWwindow* window;
 
 // Include GLM
 #include <glm/glm.hpp>
@@ -33,8 +32,6 @@ int dimVertices;
 int numberOfVertices;
 
 void init(){
-	glGenVertexArrays(1, &m_VAO);
-	glBindVertexArray(m_VAO);
 
 	// Create vertices
 	GLfloat x = 0;
@@ -52,7 +49,7 @@ void init(){
 	verticesX[0] = x;
 	verticesY[0] = y;
 	verticesZ[0] = z;
-
+    //vertice5 (verticeX[5], verticeY[5], verticeZ[5])
 	for (int i = 1; i < numberOfVertices; i++) {
 		verticesX[i] = x + (radius * cos(i * twicePi / numberOfSides));
 		verticesY[i] = y + (radius * sin(i * twicePi / numberOfSides));
@@ -68,6 +65,9 @@ void init(){
 		m_Vertices[i * 3 + 2] = verticesZ[i];
 		//cout<<" P["<<i<<"]"<<": ("<<m_Vertices2[i * 3]<<","<<m_Vertices2[i * 3+1]<<","<<m_Vertices2[i * 3+2]<<") \n";
 	}
+
+	glGenVertexArrays(1, &m_VAO);
+	glBindVertexArray(m_VAO);
 
 	glGenBuffers(1, &m_VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
@@ -106,6 +106,7 @@ void display(double currentTime) {
 
 	glEnableVertexAttribArray(0);
 	// Draw the primitives !
+	//glDrawArrays(GL_TRIANGLE_FAN, 0, numberOfVertices); // 3 indices starting at 0 -> number of Vertex
 	glDrawArrays(mode[(int)currentTime%7], 0, numberOfVertices); // 3 indices starting at 0 -> number of Vertex
 	glDisableVertexAttribArray(0);
 }
@@ -123,7 +124,7 @@ int main( void ){
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
 
 	// Open a window and create its OpenGL context
-	window = glfwCreateWindow(800, 800, "Tutorial: Draw Primitives", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(800, 800, "Tutorial: Draw Primitives", NULL, NULL);
 
 	glfwMakeContextCurrent(window);
 

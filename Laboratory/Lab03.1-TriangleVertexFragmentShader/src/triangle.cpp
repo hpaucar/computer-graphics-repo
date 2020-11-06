@@ -42,7 +42,7 @@ GLuint createShaderProgram() {
     		"#version 330  \n"
     		"out vec4 colour; \n"
     		"void main(){ \n"
-    		" colour = vec4(1.0, 0.0, 0.0, 1.0); \n"
+    		" colour = vec4(0.0, 0.0, 1.0, 1.0); \n"
     		"}";
     
     // glCreateShader : generates the two shaders of types GL_VERTEX_SHADER and GL_FRAGMENT_SHADER
@@ -72,20 +72,25 @@ GLuint createShaderProgram() {
     return vfProgram;
 }
 
-void init (GLFWwindow* window) {
+void init () {
     renderingProgram = createShaderProgram();
 
     GLfloat vertices[] = {
-			-1.0f, -1.0f, 0.0f, //P0
-			1.0f, -1.0f, 0.0f, //P1
-			0.0f, 1.0f,	0.0f }; //P2
+			-1.0f, -1.0f, 0.0f, //v0
+			 1.0f, -1.0f, 0.0f, //v1
+			 0.0f,  1.0f, 0.0f  //v2
+    };
 
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
 
 	glGenBuffers(1, &m_VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(
+			GL_ARRAY_BUFFER,
+			sizeof(vertices),
+			vertices,
+			GL_STATIC_DRAW);
 
 	glVertexAttribPointer(
 			0,	// Atributo 0 (layout = 0 )
@@ -97,10 +102,6 @@ void init (GLFWwindow* window) {
 	);
 	glEnableVertexAttribArray(0);	// Habilita este atributo "0"
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-    // VAO : Vertex Array Objects, OpenGL requires at least one VAO
-    // Cria um ID na GPU para um array de  buffers
-	glBindVertexArray(m_VAO);
 }
 
 void display(GLFWwindow* window, double currentTime) {
@@ -129,7 +130,7 @@ int main(void) {
 	}
 	glfwSwapInterval(1);
     
-    init(window);
+    init();
     
     while (!glfwWindowShouldClose(window)) {
         display(window, glfwGetTime());

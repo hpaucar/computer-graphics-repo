@@ -21,13 +21,15 @@ GLFWwindow *window;
 
 using namespace std;
 
-int dimVertices;
+int totalCoordenadas;
 int numberOfVertices;
 
 void display(double currentTime) {
 	// Clear the screen
 	// background
-	float m = ((int) currentTime % 2 == 0) ? 0.0f : 1.0f;
+	int mt = (int) currentTime % 3;
+	float m = (mt == 0) ? 0.0f :
+			(mt == 1) ? 1.0f : 0.5f;
 	glClearColor(1.0f, m, 0.0f, 0.0f);
 	//glClearColor(1.0f, 1.0f, 0.5f, 0.0f);
 	glClear( GL_COLOR_BUFFER_BIT);
@@ -47,7 +49,7 @@ int main( void ){
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	// Resizable option of Windows.
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
 	// Open a window and create its OpenGL context
 	// parameters width, height, title, monitor and share

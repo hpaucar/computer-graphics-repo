@@ -131,15 +131,14 @@ GLuint createShaderProgram() {
     return vfProgram;
 }
 
-
 void init (GLFWwindow* window) {
     renderingProgram = createShaderProgram();
     // The first 3 points are to Vertex position of Triangle
     // The other 3 points are to Vertex color
 	m_Vertices = new GLfloat[18] {
 		-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0,
-			0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0,
+		 0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
 	};
 
 	// Crea un ID en la GPU para un array de  buffers

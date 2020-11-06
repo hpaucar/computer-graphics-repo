@@ -51,12 +51,11 @@ void init (GLFWwindow* window) {
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
 
-
     // The first 3 points are to Vertex position of Triangle
 	m_Vertices = new GLfloat[9] {
 		-1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f
+		 1.0f, -1.0f, 0.0f,
+		 0.0f,  1.0f, 0.0f
 	};
 	n_Vertices = 9;
 	// Cria um ID na GPU para nosso buffer

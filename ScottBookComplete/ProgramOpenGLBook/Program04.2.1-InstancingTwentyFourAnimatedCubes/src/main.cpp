@@ -13,10 +13,10 @@
 
 // Include GLEW
 #define GLEW_STATIC
-#include <GLglew.h>
+#include <GL/glew.h>
 
 // Include GLFW
-#include <GLFWglfw3.h>
+#include <GLFW/glfw3.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

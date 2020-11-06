@@ -88,8 +88,8 @@ int main(void) {
 
 	init(window);
 
-	while (	!glfwWindowShouldClose(window) && // Presionamos el boton (x) salir
-			glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS) // Presionamos la tecla scape
+	while (!glfwWindowShouldClose(window) && // Presionamos el boton (x) salir
+			glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS) // Presionamos la tecla scape
 	{
 		display(window, glfwGetTime());
 		glfwSwapBuffers(window);

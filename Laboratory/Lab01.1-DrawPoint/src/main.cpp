@@ -25,14 +25,14 @@ GLuint VAO;
 // Vertex Buffer Object
 GLuint VBO;
 
-int dimVertices;
+int totalCoordenadas; //R2 =2; R3=3 coordenadas
 int numberOfVertices;
 
 void init(){
 	// Create vertices
-	dimVertices = 3;
+	totalCoordenadas = 3;
 	numberOfVertices = 1;
-	GLfloat m_Vertices[dimVertices] = {
+	GLfloat m_Vertices[totalCoordenadas] = {
 		0.0f, 0.0f, 0.0f
 	};
 
@@ -44,7 +44,7 @@ void init(){
 
 	glBufferData(
 			GL_ARRAY_BUFFER,
-			dimVertices * sizeof(GLfloat),
+			totalCoordenadas * sizeof(GLfloat),
 			m_Vertices,
 			GL_STATIC_DRAW
 		);
@@ -57,16 +57,17 @@ void display(double currentTime) {
 	glClear( GL_COLOR_BUFFER_BIT);
 
 	// 1rst attribute buffer : vertices
-	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glVertexAttribPointer(
 			0, // attribute 0. No particular reason for 0, but must match the layout in the shader.
-			dimVertices,        // size
+			totalCoordenadas,        // size
 			GL_FLOAT,           // type
 			GL_FALSE,           // normalized?
 			0,                  // stride
 			(void*) 0           // array buffer offset
 	);
+	glEnableVertexAttribArray(0);
+
 	glPointSize(20.0f);
 	// Draw the primitive GL_POINTS
 	glDrawArrays(GL_POINTS, 0, numberOfVertices); // 3 indices starting at 0 -> number of Vertex

@@ -53,7 +53,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="triangle.cpp|Program2.2-ShaderDrawingPoint.cpp|tutorial01-mod.cpp|tutorial01.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+						<entry excluding="Program2.2-ShaderDrawingPoint.cpp|tutorial01-mod.cpp|tutorial01.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -99,7 +99,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="triangle.cpp|Program2.2-ShaderDrawingPoint.cpp|tutorial01-mod.cpp|tutorial01.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+						<entry excluding="Program2.2-ShaderDrawingPoint.cpp|tutorial01-mod.cpp|tutorial01.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

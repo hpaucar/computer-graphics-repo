@@ -22,7 +22,6 @@ using namespace std;
 // GLuint : unsigned int
 GLuint renderingProgram;
 
-GLuint m_VBO;
 GLuint m_VAO;
 
 using namespace std;
@@ -70,7 +69,7 @@ GLuint createShaderProgram() {
 }
 
 
-void init (GLFWwindow* window) {
+void init () {
     renderingProgram = createShaderProgram();
     
     // VAO : Vertex Array Objects, OpenGL requires at least one VAO
@@ -79,7 +78,7 @@ void init (GLFWwindow* window) {
 	glBindVertexArray(m_VAO);
 }
 
-void display(double currentTime) {
+void display() {
     
     // loads the program containing the two compiled shaders into the OpenGL pipeline stages (onto the GPU)
     glUseProgram(renderingProgram);
@@ -102,16 +101,18 @@ int main(void) {
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
 
     GLFWwindow* window = glfwCreateWindow(800, 800, "Lab 03: Drawing Point with Shaders", NULL, NULL);
+
     glfwMakeContextCurrent(window);
+
 	if (glewInit() != GLEW_OK) {
 		exit(EXIT_FAILURE);
 	}
 	glfwSwapInterval(1);
     
-    init(window);
+    init();
     
     while (!glfwWindowShouldClose(window)) {
-        display(glfwGetTime());
+        display();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
