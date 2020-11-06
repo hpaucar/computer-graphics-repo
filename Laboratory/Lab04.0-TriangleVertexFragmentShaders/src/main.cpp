@@ -131,7 +131,7 @@ GLuint createShaderProgram() {
     return vfProgram;
 }
 
-void init (GLFWwindow* window) {
+void init () {
     renderingProgram = createShaderProgram();
     // The first 3 points are to Vertex position of Triangle
     // The other 3 points are to Vertex color
@@ -186,9 +186,6 @@ void init (GLFWwindow* window) {
 		);
 
 	glEnableVertexAttribArray(1);	// Habilita este atributo Layout 1
-
-
-	glBindVertexArray(0);
 }
 
 void display(double currentTime) {
@@ -197,7 +194,7 @@ void display(double currentTime) {
 	// Use este VAO y sus configuraciones
 	glBindVertexArray(m_VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
-	glBindVertexArray(0);
+
 }
 
 int main(void) {
@@ -217,7 +214,7 @@ int main(void) {
     }
     glfwSwapInterval(1);
 
-    init(window);
+    init();
 
     while (!glfwWindowShouldClose(window)) {
         display(glfwGetTime());
