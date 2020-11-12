@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : Dibujo de Triangulo por puntos ingresados en Codigo
+// Name        : Dibujo de Triangulo colorido
 // Professor   : Herminio Paucar
 // Version     :
 // Description : Utilizamos los Vertex y Fragment Shaders
@@ -194,6 +194,8 @@ void display(double currentTime) {
 	// Use este VAO y sus configuraciones
 	glBindVertexArray(m_VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
+	//glPointSize(30);
+	//glDrawArrays(GL_POINTS, 0, 3);
 
 }
 

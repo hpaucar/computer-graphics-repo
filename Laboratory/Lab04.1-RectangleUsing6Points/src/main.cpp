@@ -1,8 +1,8 @@
 //============================================================================
-// Name        : Draw Rectangle using four points.
+// Name        : Draw Rectangle using 6 points.
 // Professor   : Herminio Paucar.
 // Version     :
-// Description :
+// Description : Draw Rectangle using 6 points.
 //============================================================================
 
 // Include standard headers
@@ -27,7 +27,7 @@ GLfloat* m_Vertices;
 
 using namespace std;
 
-void init (GLFWwindow* window) {
+void init () {
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
     // Create Vertex Array Object
 	GLuint m_VAO;
@@ -44,8 +44,8 @@ void init (GLFWwindow* window) {
          0.5f, -0.5f, 0.0f, 0.0f, 1.0f, // P2:Bottom-right
 
 		-0.5f,  0.5f, 1.0f, 0.0f, 0.0f, // P0:Top-left
-        -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,  // P3:Bottom-left
-		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f // P2:Bottom-right
+        -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, // P3:Bottom-left
+		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f  // P2:Bottom-right
 	};
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 	// Reserva memoria na GPU para um TARGET receber dados
@@ -78,7 +78,7 @@ void init (GLFWwindow* window) {
 			(void*) (2 * sizeof(GLfloat)));
 }
 
-void display(GLFWwindow* window, double currentTime) {
+void display() {
     glUseProgram(renderingProgram);
 
     // Clear the screen to black
@@ -98,17 +98,17 @@ int main(void) {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            //
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
 
-    GLFWwindow* window = glfwCreateWindow(800, 800, "Lab04.1: Draw Rectangle using 4 points", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(800, 800, "Lab04.1: Draw Rectangle using 6 points", NULL, NULL);
     glfwMakeContextCurrent(window);
     if (glewInit() != GLEW_OK) {
     	exit(EXIT_FAILURE);
     }
     glfwSwapInterval(1);
 
-    init(window);
+    init();
 
     while (!glfwWindowShouldClose(window)) {
-        display(window, glfwGetTime());
+        display();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

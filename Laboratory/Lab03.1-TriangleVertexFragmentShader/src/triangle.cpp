@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : Lab 03 Draw Point
+// Name        : Lab 03 Draw Triangle
 // Professor   : Herminio Paucar
 // Version     :
 // Description : Drawing TRIANGLE using Vertex and Fragment Shader
@@ -104,7 +104,7 @@ void init () {
 
 }
 
-void display(GLFWwindow* window, double currentTime) {
+void display() {
     // loads the program containing the two compiled shaders into the OpenGL pipeline stages (onto the GPU)
     glUseProgram(renderingProgram);
     //glPointSize(30.0f);
@@ -133,7 +133,7 @@ int main(void) {
     init();
     
     while (!glfwWindowShouldClose(window)) {
-        display(window, glfwGetTime());
+        display();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

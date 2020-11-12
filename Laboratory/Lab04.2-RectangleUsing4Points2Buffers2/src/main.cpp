@@ -27,9 +27,16 @@ GLfloat* m_Vertices;
 
 using namespace std;
 
-void init (GLFWwindow* window) {
+void init () {
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
     // Create Vertex Array Object
+	m_Vertices = new GLfloat[20] {
+        -0.5f,  0.5f, 1.0f, 0.0f, 0.0f, // Top-left
+         0.5f,  0.5f, 0.0f, 1.0f, 0.0f, // Top-right
+         0.5f, -0.5f, 0.0f, 0.0f, 1.0f, // Bottom-right
+        -0.5f, -0.5f, 1.0f, 1.0f, 1.0f  // Bottom-left
+	};
+
 	GLuint m_VAO;
     glGenVertexArrays(1, &m_VAO);
     glBindVertexArray(m_VAO);
@@ -37,12 +44,7 @@ void init (GLFWwindow* window) {
     // Create a Vertex Buffer Object and copy the vertex data to it
     GLuint m_VBO;
     glGenBuffers(1, &m_VBO);
-	m_Vertices = new GLfloat[20] {
-        -0.5f,  0.5f, 1.0f, 0.0f, 0.0f, // Top-left
-         0.5f,  0.5f, 0.0f, 1.0f, 0.0f, // Top-right
-         0.5f, -0.5f, 0.0f, 0.0f, 1.0f, // Bottom-right
-        -0.5f, -0.5f, 1.0f, 1.0f, 1.0f  // Bottom-left
-	};
+
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 	// Reserva memoria na GPU para um TARGET receber dados
 	// Copia esses dados pra essa área de memoria
@@ -88,7 +90,7 @@ void init (GLFWwindow* window) {
 			(void*) (2 * sizeof(GLfloat)));
 }
 
-void display(GLFWwindow* window, double currentTime) {
+void display() {
     glUseProgram(renderingProgram);
 
     // Clear the screen to black
@@ -96,7 +98,6 @@ void display(GLFWwindow* window, double currentTime) {
     glClear(GL_COLOR_BUFFER_BIT);
     // Draw a rectangle from the 2 triangles using 6 indices
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
 }
 
 int main(void) {
@@ -116,10 +117,10 @@ int main(void) {
     }
     glfwSwapInterval(1);
 
-    init(window);
+    init();
 
     while (!glfwWindowShouldClose(window)) {
-        display(window, glfwGetTime());
+        display();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
