@@ -1,9 +1,10 @@
 #version 450
+
 out vec4 fragColor;
 //dimension of windows
 uniform vec2 resize;
-void main(void)
-{    
+
+void main(void){    
     //Draw tree
     vec2 p = gl_FragCoord.xy / resize.xy;
     vec2 q = p - vec2(0.33, 0.7) ;
@@ -17,5 +18,7 @@ void main(void)
     r += exp(-40.0*p.y);
     col *= 1.0 - (1.0-smoothstep( r, r+0.002, abs(q.x-0.25*sin(2.0*q.y)) ))*(1.0-smoothstep(0.0, 0.1, q.y));
     
-    fragColor = vec4(col,1.0);    
+    fragColor = vec4(col,1.0); 
+    
+    //fragColor = vec4(1.0, 0.0, 0.0, 1.0); 
 }

@@ -49,13 +49,13 @@ void init (GLFWwindow* window) {
 			1.0f, 1.0f, 0.0f,
 	};
 
-	// Cria um ID na GPU para nosso buffer
-	glGenBuffers(1, &m_VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-
 	// Cria um ID na GPU para um array de  buffers
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
+
+	// Cria um ID na GPU para nosso buffer
+	glGenBuffers(1, &m_VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 
 	// Reserva memoria na GPU para um TARGET receber dados
 	// Copia esses dados pra essa área de memoria
@@ -99,7 +99,6 @@ void display(GLFWwindow* window, double currentTime) {
 	glBindVertexArray(m_VAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);
-
 }
 
 int main(void) {
