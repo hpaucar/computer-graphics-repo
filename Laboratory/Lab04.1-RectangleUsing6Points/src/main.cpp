@@ -21,6 +21,8 @@
 #include <fstream>
 #include "Utils.h"
 
+// VAO and VBO
+GLuint m_VAO, m_VBO;
 GLuint renderingProgram;
 
 GLfloat* m_Vertices;
@@ -29,14 +31,11 @@ using namespace std;
 
 void init () {
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
-    // Create Vertex Array Object
-	GLuint m_VAO;
+
+	// Create Vertex Array Object
     glGenVertexArrays(1, &m_VAO);
     glBindVertexArray(m_VAO);
 
-    // Create a Vertex Buffer Object and copy the vertex data to it
-    GLuint m_VBO;
-    glGenBuffers(1, &m_VBO);
     int dim = 30;
 	m_Vertices = new GLfloat[dim] {
         -0.5f,  0.5f, 1.0f, 0.0f, 0.0f, // P0:Top-left
@@ -47,6 +46,8 @@ void init () {
         -0.5f, -0.5f, 1.0f, 1.0f, 1.0f, // P3:Bottom-left
 		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f  // P2:Bottom-right
 	};
+	// Create a Vertex Buffer Object and copy the vertex data to it
+    glGenBuffers(1, &m_VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 	// Reserva memoria na GPU para um TARGET receber dados
 	// Copia esses dados pra essa área de memoria

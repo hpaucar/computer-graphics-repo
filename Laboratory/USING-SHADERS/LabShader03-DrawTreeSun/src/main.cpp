@@ -42,11 +42,11 @@ void init (GLFWwindow* window) {
     n_Vertices = 18;
     m_Vertices = new GLfloat[18] {
 			-1.0f, -1.0f, 0.0f, //Triangle 01
-			-1.0f, 1.0f, 0.0f,
-			1.0f, -1.0f, 0.0f,
-			-1.0f, 1.0f, 0.0f, //Triangle 02
-			1.0f, -1.0f, 0.0f,
-			1.0f, 1.0f, 0.0f,
+			-1.0f,  1.0f, 0.0f,
+			 1.0f, -1.0f, 0.0f,
+			-1.0f,  1.0f, 0.0f, //Triangle 02
+			 1.0f, -1.0f, 0.0f,
+			 1.0f,  1.0f, 0.0f,
 	};
 
 	// Cria um ID na GPU para um array de  buffers
@@ -68,7 +68,7 @@ void init (GLFWwindow* window) {
 
 	// Nesse ponto, ja copiamos nossos dados pra GPU.
 	glVertexAttribPointer(
-			0,
+			0, //Layout = 0
 			3,
 			GL_FLOAT,
 			GL_FALSE,
