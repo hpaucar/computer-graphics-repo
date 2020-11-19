@@ -1,0 +1,1 @@
+g++ main.cpp imgui.cpp imgui_demo.cpp imgui_draw.cpp imgui_impl_glfw.cpp imgui_impl_opengl3.cpp imgui_widgets.cpp -o main -L ..\..\..\dependencies -lglew32s -lglu32 -lopengl32 -lglfw3 -mwindows -mconsole -D GLEW_STATIC 

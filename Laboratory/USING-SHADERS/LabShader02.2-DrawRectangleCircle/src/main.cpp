@@ -1,6 +1,6 @@
 //============================================================================
 // Name        : Display circle
-// Professor   : Herminio Paucar
+// Professor   :  Herminio Paucar
 // Version     :
 // Description : Utilizamos los Vertex y Fragment Shaders para diseñar un circulo
 //============================================================================
