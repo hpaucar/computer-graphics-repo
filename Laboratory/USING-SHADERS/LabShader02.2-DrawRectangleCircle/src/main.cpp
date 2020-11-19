@@ -33,7 +33,7 @@ GLuint m_VAO;
 
 using namespace std;
 
-void init (GLFWwindow* window) {
+void init () {
 
     //renderingProgram = createShaderProgram();
 	// Utils
@@ -82,7 +82,7 @@ void init (GLFWwindow* window) {
 	glBindVertexArray(0);
 }
 
-void display(GLFWwindow* window, double currentTime) {
+void display(double currentTime) {
     glUseProgram(renderingProgram);
 
     //Obtiene el valor de la variable uniforme "resize"
@@ -112,10 +112,10 @@ int main(void) {
     	exit(EXIT_FAILURE);
     }
     glfwSwapInterval(1);
-    init(window);
+    init();
     while (!glfwWindowShouldClose(window)) {
 
-        display(window, glfwGetTime());
+        display(glfwGetTime());
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
