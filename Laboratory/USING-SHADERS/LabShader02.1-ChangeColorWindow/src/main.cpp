@@ -85,7 +85,7 @@ void init (GLFWwindow* window) {
 void display(GLFWwindow* window, double currentTime) {
     glUseProgram(renderingProgram);
 
-    //Obtiene el valor de la variable uniforme "resize"
+    //Obtiene el id de la variable uniforme "u_time"
     GLuint uTime = glGetUniformLocation(renderingProgram, "u_time");
     //Se va actualizar un vector de 2 valores
 	glProgramUniform1f(renderingProgram, uTime, currentTime);

@@ -84,8 +84,9 @@ void init (GLFWwindow* window) {
 void display(GLFWwindow* window, double currentTime) {
     glUseProgram(renderingProgram);
 
-    //Obtiene el valor de la variable uniforme "resize"
+    //Obtiene el id de la variable uniforme "u_resolution"
     GLuint uResolution = glGetUniformLocation(renderingProgram, "u_resolution");
+    //asigna el valor para la variable "uResolution"
 	glProgramUniform2f(renderingProgram, uResolution, W_WIDTH, W_HEIGHT);
 
 	// Use este VAO e suas configurações

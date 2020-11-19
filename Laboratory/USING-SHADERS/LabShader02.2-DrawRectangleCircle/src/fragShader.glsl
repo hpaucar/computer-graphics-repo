@@ -6,16 +6,7 @@ precision mediump float;
 uniform float u_time;
 out vec4 fragColor;
 
-void drawRectangle(){
-	if(gl_FragCoord.x > 400.0f && gl_FragCoord.y > 400.0f)
-		fragColor = vec4(abs(sin(u_time)), 0.0, 1.0, 1.0); 
-	else if(gl_FragCoord.x < 400.0f && gl_FragCoord.y < 400.0f)
-		fragColor = vec4(abs(sin(u_time)), 0.0, 1.0, 1.0); 
-	else
-		fragColor = vec4(abs(sin(u_time)), 1.0, 1.0, 1.0); 	
-}
-
-// verify that ponit is in circle (x-a)^2+(x-b)^2 <= r^2
+// verify that point is in circle (x-a)^2+(x-b)^2 <= r^2
 bool isInCircle(float x, float y){
 	
 	if(pow(x-400, 2)+pow(y-400, 2) <= 40000)
@@ -28,6 +19,15 @@ void drawCircle(){
 		fragColor = vec4(abs(sin(u_time)), 0.0, 1.0, 1.0); 
 	else
 		fragColor = vec4(abs(sin(u_time)), 1.0, 1.0, 1.0); 		
+}
+
+void drawRectangle(){
+	if(gl_FragCoord.x > 400.0f && gl_FragCoord.y > 400.0f)
+		fragColor = vec4(abs(sin(u_time)), 0.0, 1.0, 1.0); 
+	else if(gl_FragCoord.x < 400.0f && gl_FragCoord.y < 400.0f)
+		fragColor = vec4(abs(sin(u_time)), 0.0, 1.0, 1.0); 
+	else
+		fragColor = vec4(abs(sin(u_time)), 1.0, 1.0, 1.0); 	
 }
 
 void main() {

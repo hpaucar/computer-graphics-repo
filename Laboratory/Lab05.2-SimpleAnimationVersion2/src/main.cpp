@@ -70,7 +70,7 @@ int main(void) {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);     // and neither this
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
 
-	GLFWwindow *window = glfwCreateWindow(800, 800, "Lab05: Display Animation using Shaders", NULL,	NULL);
+	GLFWwindow *window = glfwCreateWindow(800, 800, "Lab05.2: Display Animation using Shaders", NULL,	NULL);
 	glfwMakeContextCurrent(window);
 	if (glewInit() != GLEW_OK) {
 		exit(EXIT_FAILURE);
