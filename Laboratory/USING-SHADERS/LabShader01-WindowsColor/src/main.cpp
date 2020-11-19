@@ -42,11 +42,11 @@ void init(GLFWwindow *window) {
     n_Vertices = 18;
     m_Vertices = new GLfloat[18] {
 			-1.0f, -1.0f, 0.0f, //Triangle 01
-			-1.0f, 1.0f, 0.0f,
-			1.0f, -1.0f, 0.0f,
-			-1.0f, 1.0f, 0.0f, //Triangle 02
-			1.0f, -1.0f, 0.0f,
-			1.0f, 1.0f, 0.0f,
+			-1.0f,  1.0f, 0.0f,
+			 1.0f, -1.0f, 0.0f,
+			-1.0f,  1.0f, 0.0f, //Triangle 02
+			 1.0f, -1.0f, 0.0f,
+			 1.0f,  1.0f, 0.0f,
 	};
 
 	// Cria um ID na GPU para nosso buffer

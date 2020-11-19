@@ -141,12 +141,12 @@ void init (GLFWwindow* window) {
     // The first 3 points are to Vertex position of Triangle
     n_Vertices = 18;
     m_Vertices = new GLfloat[18] {
-			-1.0f, -1.0f, 0.0f, //Triangle 01
-			-1.0f, 1.0f, 0.0f,
-			1.0f, -1.0f, 0.0f,
-			-1.0f, 1.0f, 0.0f, //Triangle 02
-			1.0f, -1.0f, 0.0f,
-			1.0f, 1.0f, 0.0f,
+			-1.0f, -1.0f, 0.0f, //p0 //Triangle 01
+			-1.0f,  1.0f, 0.0f, //p1
+			 1.0f, -1.0f, 0.0f, //p2
+			-1.0f,  1.0f, 0.0f, //p1 //Triangle 02
+			 1.0f, -1.0f, 0.0f, //p2
+			 1.0f,  1.0f, 0.0f, //p3
 	};
 
 

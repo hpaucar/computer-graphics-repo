@@ -1,11 +1,11 @@
 #version 450
 out vec4 fragColor;
-vec2 res;
+vec2 resolution;
 void main(void)
 { 
-	res = vec2(800.0, 800.0);
-    vec2 p = gl_FragCoord.xy/res.xy;    
-    vec3 col = vec3(1.0, 1.2, 0.1);
+	resolution = vec2(800.0, 800.0);
+    vec2 p = gl_FragCoord.xy/resolution.xy;    
+    vec3 col = vec3(1, 0.5, 0.1);
    
    // Draw vertical
    // col += p.x;    

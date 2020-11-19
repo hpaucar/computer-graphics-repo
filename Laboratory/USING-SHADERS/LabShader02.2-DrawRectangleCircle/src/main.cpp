@@ -1,8 +1,8 @@
 //============================================================================
-// Name        :
+// Name        : Display circle
 // Professor   : Herminio Paucar
 // Version     :
-// Description : Utilizamos los Vertex y Fragment Shaders
+// Description : Utilizamos los Vertex y Fragment Shaders para diseñar un circulo
 //============================================================================
 
 // Include standard headers
@@ -106,7 +106,7 @@ int main(void) {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            //
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
 
-    GLFWwindow* window = glfwCreateWindow(W_WIDTH, W_HEIGHT, "LabShader02.1: Display Change Color Window", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(W_WIDTH, W_HEIGHT, "LabShader02.2: Display Circle", NULL, NULL);
     glfwMakeContextCurrent(window);
     if (glewInit() != GLEW_OK) {
     	exit(EXIT_FAILURE);
