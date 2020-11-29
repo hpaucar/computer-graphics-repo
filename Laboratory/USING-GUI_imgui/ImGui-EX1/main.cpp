@@ -17,7 +17,6 @@ void init(GLFWwindow *window){
     ImGui_ImplOpenGL3_Init("#version 130");
     /*--[INICIALIZACION IMGUI]-----------*/
 
-
 }
 
 void display(){
@@ -51,12 +50,16 @@ void display(){
 
 int main(){
     if (!glfwInit()) return 1;
+
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui GLFW+OpenGL3 example", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(800, 800, "Dear ImGui GLFW+OpenGL3 example", NULL, NULL);
     if (window == NULL) return 1;
+
     glfwMakeContextCurrent(window);
+
     glfwSwapInterval(1); // Enable vsync
+
     if (glewInit() != GLEW_OK) return 1;
 
     init(window);

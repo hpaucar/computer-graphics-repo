@@ -1,6 +1,7 @@
 #version 450
 out vec4 fragColor;
 vec2 resolution;
+
 void main(void)
 { 
 	resolution = vec2(800.0, 800.0);
@@ -12,6 +13,8 @@ void main(void)
    
    // Draw circle
     col *= length(p - vec2(0.5, 0.5));
-   
-    fragColor = vec4(col, 1.0);
+   //if(gl_FragCoord.x<401)
+    	fragColor = vec4(col, 1.0);
+   //else  	
+   //	fragColor = vec4(0,0,0, 1.0);
 }

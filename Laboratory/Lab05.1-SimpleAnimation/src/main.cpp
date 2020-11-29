@@ -42,14 +42,13 @@ void init (GLFWwindow* window) {
 }
 
 void display(GLFWwindow* window, double currentTime) {
+    glUseProgram(renderingProgram);
     
     // clear the background to black, each time
     glClear(GL_DEPTH_BUFFER_BIT);
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
-    
-    glUseProgram(renderingProgram);
-    
+
     // move the triangle along x axis
     x += inc;
     // switch to moving the triangle to the left
