@@ -60,8 +60,10 @@ void display(GLFWwindow* window, double currentTime) {
     GLuint offsetLoc = glGetUniformLocation(renderingProgram, "offset");
     
     glProgramUniform1f(renderingProgram, offsetLoc, x);
-    
+    //Draw Triangle
     glDrawArrays(GL_TRIANGLES, 0, 3);
+    //Draw Rectangle with Two Triangles, active 6 vertex positions in VertexShaders
+    //glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 int main(void) {

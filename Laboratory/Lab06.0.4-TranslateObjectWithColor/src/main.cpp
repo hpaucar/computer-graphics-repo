@@ -64,15 +64,8 @@ void init (GLFWwindow* window) {
 	};
 	n_Vertices = 72;
 	/*************************************************************/
-
 	// Cria um ID na GPU para nosso buffer
 	glGenBuffers(1, &m_VBO);
-
-	// Cria um ID na GPU para um array de  buffers
-	glGenVertexArrays(1, &m_VAO);
-
-	glBindVertexArray(m_VAO);
-
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 
 	// Reserva memoria na GPU para um TARGET receber dados
