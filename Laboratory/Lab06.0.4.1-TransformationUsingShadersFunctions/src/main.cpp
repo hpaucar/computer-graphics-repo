@@ -1,8 +1,8 @@
 //============================================================================
-// Name        : Display Animation using Shaders
+// Name        : Trasnformation Functions with Shaders
 // Professor   : Herminio Paucar
 // Version     :
-// Description : Display my first Animation
+// Description : Display Transformation(Translate, Rotation and Scale) using only Shaders
 //============================================================================
 
 // Include standard headers
