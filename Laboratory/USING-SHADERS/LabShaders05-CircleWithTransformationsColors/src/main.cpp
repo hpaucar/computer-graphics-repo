@@ -44,15 +44,13 @@ void display(GLFWwindow* window, double currentTime) {
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // get ptr to "offset"
+    // get ptr to "rotate"
     GLuint rotateLoc = glGetUniformLocation(renderingProgram, "rotate");
     
     glProgramUniform1f(renderingProgram, rotateLoc, currentTime);
     //Draw Triangle
     glPointSize(20);
     glDrawArrays(GL_POINTS, 0, 50);
-    //Draw Rectangle with Two Triangles, active 6 vertex positions in VertexShaders
-    //glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 int main(void) {
