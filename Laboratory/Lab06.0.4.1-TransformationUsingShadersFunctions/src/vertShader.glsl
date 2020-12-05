@@ -2,7 +2,7 @@
 layout (location=0) in vec3 position;  // coord
 uniform float offset;
 
-// funtions to Transformations(Rotate, Translate, Scale)
+// funtions to Transformations(Rotate, Translate, Scale), check each matrix is a Transposed
 mat4 buildRotateX(float rad);
 mat4 buildRotateY(float rad);
 mat4 buildRotateZ(float rad);
