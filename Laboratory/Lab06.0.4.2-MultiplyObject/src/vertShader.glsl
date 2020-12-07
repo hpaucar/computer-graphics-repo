@@ -1,37 +1,32 @@
 #version 410
-
 layout (location=0) in vec3 position;  // coord
+uniform float offset;
 
-uniform mat4 v_matrix;
-uniform mat4 proj_matrix;
-uniform float tf;
-
-out vec4 varyingColor;  // be interpolated by the rasterizer
-
+// funtions to Transformations(Rotate, Translate, Scale)
 mat4 buildRotateX(float rad);
 mat4 buildRotateY(float rad);
 mat4 buildRotateZ(float rad);
 mat4 buildTranslate(float x, float y, float z);
+mat4 buildScale(float sx, float sy, float sz);
+const float pi = 3.141592653589793;
 
 void main(void) {
-    float i = gl_InstanceID + tf;  // value based on time factor, but different fo each cube instance
-    
-    float a = sin(0.35 * i) * 8.0;
-    float b = sin(0.52 * i) * 8.0;
-    float c = sin(0.70 * i) * 8.0;
-    
-    mat4 localTrans = buildTranslate(a, b, c);
-    
-    mat4 localRotX = buildRotateX(1.75 * i);
-    mat4 localRotY = buildRotateY(1.75 * i);
-    mat4 localRotZ = buildRotateZ(1.75 * i);
-    
-    // build the model matrix and then the model-view matrix
-    mat4 newM_matrix = localTrans * localRotX * localRotY * localRotZ;
-    mat4 mv_matrix = v_matrix * newM_matrix;
-    
-    gl_Position = proj_matrix * mv_matrix * vec4(position, 1.0);  // right-to-left
-    varyingColor = vec4(position, 1.0) * 0.5 + vec4(0.5, 0.5, 0.5, 0.5);
+	float a, b, c = 0;
+	if(gl_InstanceID == 0){ //Triangle in I quadrant
+		a = b = 0.50;
+	}else if(gl_InstanceID == 1){ //Triangle in II quadrant
+		a = -0.50; b = 0.50;
+	}else if(gl_InstanceID == 2){ //Triangle in III quadrant
+		a = -0.50; b = -0.50;
+	}else if(gl_InstanceID == 3){  //Triangle in IV quadrant
+		a = 0.50; b = -0.50;
+	}
+	
+	//All Transformation funtions. 	
+	mat4 localTrans = buildTranslate(a, b, 0); //Translate in x and y axis.
+	mat4 localScal = buildScale(0.5, 0.5, 0); //Scale in 20%.
+	
+	gl_Position = localTrans * localScal * vec4(position, 1.0);  // right-to-left
 }
 
 // builds and returns a matrix that performs a rotation around the X axis
@@ -68,4 +63,13 @@ mat4 buildTranslate(float x, float y, float z) {
                       0.0, 0.0, 1.0, 0.0,
                       x,   y,   z,   1.0);
     return trans;
+}
+
+// builds and returns a Scale matrix
+mat4 buildScale(float sx, float sy, float sz) {
+    mat4 scale = mat4( sx, 0.0, 0.0, 0.0,
+                      0.0,  sy, 0.0, 0.0,
+                      0.0, 0.0,  sz, 0.0,
+                      0.0, 0.0, 0.0, 1.0);
+    return scale;
 }
