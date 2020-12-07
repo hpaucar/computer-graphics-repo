@@ -15,10 +15,9 @@ mat4 buildScale(float sx, float sy, float sz);
 const float radius = 0.2;
 const float pi = 3.141592653589793;
 const float twicePi = 2*pi;
-const float numberOfSides = 50;
+const float numberOfSides = 12; //Numero de punto donde ser trasladan los triangulos
 
-void main(void) {
-	
+void main(void){	
 	//gl_InstanceID: indica el id de los vertices en el buffer.     
     if(gl_InstanceID%2 == 0)
     	oColor = vec3(1.0, 0.0, 0.0);
@@ -33,7 +32,7 @@ void main(void) {
 	
 	//All Transformation funtions. 	
 	mat4 localTrans = buildTranslate(x_vertex, y_vertex, 0); //Translate in x and y axis.
-	mat4 localScal = buildScale(0.025, 0.025, 0); //Scale in 20%.
+	mat4 localScal = buildScale(0.10, 0.06, 0); //Scale in 2%.
 
 	gl_Position = localTrans * localRotaZ * localScal * vec4(position, 1.0);  // right-to-left
 }

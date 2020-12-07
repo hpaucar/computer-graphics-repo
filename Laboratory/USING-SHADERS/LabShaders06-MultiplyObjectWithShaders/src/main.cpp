@@ -23,14 +23,14 @@
 #include "Utils.h"
 
 GLuint renderingProgram;
-GLfloat* m_Vertices;
+GLfloat *m_Vertices;
 GLuint n_Vertices;
 GLuint m_VBO;
 GLuint m_VAO;
 
 using namespace std;
 
-void init (GLFWwindow* window) {
+void init() {
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
 
 	// Cria um ID na GPU para um array de  buffers
@@ -68,7 +68,7 @@ void init (GLFWwindow* window) {
 	glEnableVertexAttribArray(0);	// Habilita este atributo
 }
 
-void display(GLFWwindow* window, double currentTime) {
+void display(double currentTime) {
     glUseProgram(renderingProgram);
     
     // clear the background to black, each time
@@ -83,8 +83,7 @@ void display(GLFWwindow* window, double currentTime) {
     // Use este VAO e suas configurações
     glBindVertexArray(m_VAO);
     //Draw Triangles using Instances
-	glDrawArraysInstanced(GL_TRIANGLES, 0, 3, 50);
-
+	glDrawArraysInstanced(GL_TRIANGLES, 0, 3, 12);
 }
 
 int main(void) {
@@ -97,20 +96,19 @@ int main(void) {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            //
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
 
-    GLFWwindow* window = glfwCreateWindow(800, 800, "Lab05.1: Display First Animation", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(800, 800, "LabShaders06.1: Multiply Object with Shaders", NULL, NULL);
     glfwMakeContextCurrent(window);
 	if (glewInit() != GLEW_OK) {
 		exit(EXIT_FAILURE);
 	}
     glfwSwapInterval(1);
     
-    init(window);
-    
+    init();
     while (!glfwWindowShouldClose(window)) {
-        display(window, glfwGetTime());
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
+		display(glfwGetTime());
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+	}
     
     glfwDestroyWindow(window);
     glfwTerminate();
