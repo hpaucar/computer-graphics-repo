@@ -98,8 +98,6 @@ void init (GLFWwindow* window) {
 		);
 
 	glEnableVertexAttribArray(1);		// Habilita este atributo
-
-	glBindVertexArray(0);
 }
 
 void display(GLFWwindow* window, double currentTime) {
