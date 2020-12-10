@@ -102,10 +102,10 @@ void display(GLFWwindow *window, double currentTime) {
     //Generate view Matrix - CAMARA
     glm::mat4 view = glm::translate(
     		glm::mat4(1.0f),
-			glm::vec3(0.0f, 0.0f, -(float)currentTime
-			));
+			glm::vec3(0.0f, 0.0f, -(float)currentTime));
 
     //Generate model Matrix - OBJETO
+
     glm::mat4 model = glm::rotate(
     		glm::mat4(1.0f),
 			glm::radians((float)currentTime*2.0f),
@@ -116,13 +116,12 @@ void display(GLFWwindow *window, double currentTime) {
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, &projection[0][0]);
 
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);  // makes the 0th buffer "active"
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0); // associates 0th attribute with buffer
-	glEnableVertexAttribArray(0);  // enable the 0th vertex attribute
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
+	// Use este VAO e suas configurações
+	glBindVertexArray(m_VAO);
 	//glPointSize(10.0);
 	//glDrawArrays(GL_POINTS, 0, 6);
 	glDrawArrays(GL_TRIANGLES, 0, 6);

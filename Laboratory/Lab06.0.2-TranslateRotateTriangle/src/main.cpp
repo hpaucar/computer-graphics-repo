@@ -42,7 +42,7 @@ float triMaxOffset = 0.7f;
 float triIncrement = 0.005f;
 float curAngle = 0.0f;
 
-void init (GLFWwindow* window) {
+void init () {
 
 	// Utils
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
@@ -60,12 +60,6 @@ void init (GLFWwindow* window) {
 	n_Vertices = 9;
 	// Cria um ID na GPU para nosso buffer
 	glGenBuffers(1, &m_VBO);
-
-	// Cria um ID na GPU para um array de  buffers
-	glGenVertexArrays(1, &m_VAO);
-
-	glBindVertexArray(m_VAO);
-
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 
 	// Reserva memoria na GPU para um TARGET receber dados
@@ -87,8 +81,6 @@ void init (GLFWwindow* window) {
 		);
 
 	glEnableVertexAttribArray(0);	// Habilita este atributo
-
-	glBindVertexArray(0);
 }
 
 void display(GLFWwindow* window, double currentTime) {
@@ -98,7 +90,7 @@ void display(GLFWwindow* window, double currentTime) {
 
 	glUseProgram(renderingProgram);
 
-	GLuint uniformModel = glGetUniformLocation(renderingProgram, "model");
+	GLuint modelLoc = glGetUniformLocation(renderingProgram, "model");
 
 	if (direction) {
 		triOffset += triIncrement;
@@ -119,18 +111,20 @@ void display(GLFWwindow* window, double currentTime) {
 	// Matriz con elementos de valor 1
 	glm::mat4 model(1.0f);
 	//Movimiento Horizontal
-	model = glm::translate(model, glm::vec3(triOffset, 0.0f, 0.0f));
+	//model = glm::translate(model, glm::vec3(triOffset, 0.0f, 0.0f));
 	//Movimiento Vertical
 	//model = glm::translate(model, glm::vec3(0.0f, triOffset, 0.0f));
 	//Movimiento Diagonal
 	//model = glm::translate(model, glm::vec3(triOffset, triOffset, 0.0f));
+	//model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 
-	model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-
+	glm::mat4 transl = glm::translate(glm::mat4(1.0), glm::vec3(triOffset, 0.0f, 0.0f));
+	glm::mat4 rota = glm::rotate(glm::mat4(1.0),curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+	model = transl*rota;
 	//Usando UniformMatrix
-	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	//Usando ProgramUniform
-	//glProgramUniformMatrix4fv(renderingProgram, uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	//glProgramUniformMatrix4fv(renderingProgram, modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 	// Use este VAO e suas configurações
 	glBindVertexArray(m_VAO);
@@ -156,7 +150,7 @@ int main(void) {
     }
     glfwSwapInterval(1);
 
-    init(window);
+    init();
 
     while (!glfwWindowShouldClose(window)) {
         display(window, glfwGetTime());

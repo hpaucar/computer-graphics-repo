@@ -1,6 +1,5 @@
 #version 410
 layout (location=0) in vec3 position;  // coord
-uniform float offset;
 
 // funtions to Transformations(Rotate, Translate, Scale)
 mat4 buildRotateX(float rad);
@@ -13,18 +12,18 @@ const float pi = 3.141592653589793;
 void main(void) {
 	float a, b, c = 0;
 	if(gl_InstanceID == 0){ //Triangle in I quadrant
-		a = b = 0.50;
+		a = b = 0.5;
 	}else if(gl_InstanceID == 1){ //Triangle in II quadrant
-		a = -0.50; b = 0.50;
+		a = -0.5; b = 0.5;
 	}else if(gl_InstanceID == 2){ //Triangle in III quadrant
-		a = -0.50; b = -0.50;
+		a = -0.5; b = -0.5;
 	}else if(gl_InstanceID == 3){  //Triangle in IV quadrant
-		a = 0.50; b = -0.50;
+		a = 0.5; b = -0.5;
 	}
 	
 	//All Transformation funtions. 	
 	mat4 localTrans = buildTranslate(a, b, 0); //Translate in x and y axis.
-	mat4 localScal = buildScale(0.5, 0.5, 0); //Scale in 20%.
+	mat4 localScal = buildScale(0.5, 0.5, 0); //Scale in 50%.
 	
 	gl_Position = localTrans * localScal * vec4(position, 1.0);  // right-to-left
 }

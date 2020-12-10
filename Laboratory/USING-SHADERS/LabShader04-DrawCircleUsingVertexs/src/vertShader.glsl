@@ -7,7 +7,7 @@ const float numberOfSides = 100; //Is the same that number of vertex in main.cpp
 
 void main(void) {
 	//gl_VertexID: indica el id de los vertices en el buffer.   
-    float i = gl_VertexID;
+    float i = gl_VertexID; // 0, 1, 2, 3
 	float x_vertex = radius * cos(i * twicePi / numberOfSides);
 	float y_vertex = radius * sin(i * twicePi / numberOfSides);
 	

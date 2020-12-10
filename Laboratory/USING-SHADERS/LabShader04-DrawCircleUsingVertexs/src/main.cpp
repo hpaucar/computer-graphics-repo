@@ -46,7 +46,7 @@ void display() {
 
     //Draw Triangle
     glPointSize(5);
-    glDrawArrays(GL_POINTS, 0, 100);
+    glDrawArrays(GL_POINTS, 0, 100); //Dibujar 100 vertices
 }
 
 int main(void) {

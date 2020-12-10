@@ -5,8 +5,6 @@ uniform float rotate;
 out vec3 oColor;
 
 // funtions to Transformations(Rotate, Translate, Scale)
-mat4 buildRotateX(float rad);
-mat4 buildRotateY(float rad);
 mat4 buildRotateZ(float rad);
 mat4 buildTranslate(float x, float y, float z);
 mat4 buildScale(float sx, float sy, float sz);
@@ -28,31 +26,13 @@ void main(void){
 	float x_vertex = 0.5 + radius * cos(i * twicePi / numberOfSides);
 	float y_vertex = 0.5 + radius * sin(i * twicePi / numberOfSides);
 		
-	mat4 localRotaZ = buildRotateZ(rotate * twicePi*2 / 360);
+	mat4 localRotaZ = buildRotateZ(rotate * twicePi*4 / 360);
 	
 	//All Transformation funtions. 	
 	mat4 localTrans = buildTranslate(x_vertex, y_vertex, 0); //Translate in x and y axis.
-	mat4 localScal = buildScale(0.10, 0.06, 0); //Scale in 2%.
+	mat4 localScal = buildScale(0.10, 0.06, 0); //Scale in 10% y 6%.
 
 	gl_Position = localTrans * localRotaZ * localScal * vec4(position, 1.0);  // right-to-left
-}
-
-// builds and returns a matrix that performs a rotation around the X axis
-mat4 buildRotateX(float rad) {
-    mat4 xrot = mat4(1.0, 0.0,      0.0,       0.0,
-                     0.0, cos(rad), -sin(rad), 0.0,
-                     0.0, sin(rad), cos(rad),  0.0,
-                     0.0, 0.0,      0.0,       1.0);
-    return xrot;
-}
-
-// builds and returns a matrix that performs a rotation around the Y axis
-mat4 buildRotateY(float rad) {
-    mat4 yrot = mat4(cos(rad),  0.0, sin(rad), 0.0,
-                     0.0,       1.0, 0.0,      0.0,
-                     -sin(rad), 0.0, cos(rad), 0.0,
-                     0.0,       0.0, 0.0,      1.0);
-    return yrot;
 }
 
 // builds and returns a matrix that performs a rotation around the Z axis

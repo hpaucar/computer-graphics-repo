@@ -25,7 +25,7 @@ void main(void) {
 	mat4 localScal = buildScale(0.8, 0.8, 0); //Scale in 25%.
 
 	//gl_Position = localRotaZ * vec4(x_vertex, y_vertex, 0.0, 1.0);
-	gl_Position = localScal * localRotaZ * vec4(x_vertex, y_vertex, 0.0, 1.0); 		    		
+	gl_Position = localRotaZ * localScal * vec4(x_vertex, y_vertex, 0.0, 1.0); 		    		
 }
 
 // builds and returns a matrix that performs a rotation around the Z axis

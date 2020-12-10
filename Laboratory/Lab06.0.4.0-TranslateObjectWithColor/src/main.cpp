@@ -50,8 +50,8 @@ void init (GLFWwindow* window) {
     // Vertex and color of Triangles
 	m_Vertices = new GLfloat[72] {
 		0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,//Triangle 01
-		1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-		0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+		1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		0.5f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,//Triangle 02
 		-1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
 		-0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
@@ -96,7 +96,6 @@ void init (GLFWwindow* window) {
 			6 * sizeof(GLfloat),// De quantos em quantos bytes, este atributo é encontrado no buffer ? No nosso caso 3 floats pros vertices + 3 floats pra cor = 6 floats
 			(GLvoid*) (3 * sizeof(GLfloat))	// Onde está o primeiro valor deste atributo no buffer. Nesse caso, 3 floats após o início do buffer
 		);
-
 	glEnableVertexAttribArray(1);		// Habilita este atributo
 }
 
@@ -128,6 +127,8 @@ void display(GLFWwindow* window, double currentTime) {
 	// Use este VAO e suas configurações
 	glBindVertexArray(m_VAO);
     glDrawArrays(GL_TRIANGLES, 0, 12);
+    //glPointSize(20);
+    //glDrawArrays(GL_POINTS, 0, 12);
 	glBindVertexArray(0);
 	glUseProgram(0);
 }

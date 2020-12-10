@@ -18,12 +18,12 @@ void main(void) {
 	mat4 localRotaY = buildRotateY(offset*pi/4);
 	mat4 localRotaZ = buildRotateZ(offset*pi/4);
 	
-	gl_Position = localTrans * vec4(position, 1.0);  // right-to-left
+	//gl_Position = localTrans * vec4(position, 1.0);  // right-to-left
 	//gl_Position = localScal * vec4(position, 1.0); 
 	//gl_Position = localRotaZ * vec4(position, 1.0);	    		
 	//gl_Position = localTrans * localScal * vec4(position, 1.0);
 	//gl_Position = localScal * localTrans * vec4(position, 1.0); // Why is more slow?
-	//gl_Position = localTrans * localRotaZ * localScal * vec4(position, 1.0);
+	gl_Position = localTrans * localRotaZ * localScal * vec4(position, 1.0);
 }
 
 // builds and returns a matrix that performs a rotation around the X axis
@@ -54,11 +54,11 @@ mat4 buildRotateZ(float rad) {
 }
 
 // builds and returns a translation matrix
-mat4 buildTranslate(float x, float y, float z) {
+mat4 buildTranslate(float dx, float dy, float dz) {
     mat4 trans = mat4(1.0, 0.0, 0.0, 0.0,
                       0.0, 1.0, 0.0, 0.0,
                       0.0, 0.0, 1.0, 0.0,
-                      x,   y,   z,   1.0);
+                       dx,  dy,  dz, 1.0);
     return trans;
 }
 

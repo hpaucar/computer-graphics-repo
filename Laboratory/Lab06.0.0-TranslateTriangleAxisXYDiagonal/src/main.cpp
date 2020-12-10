@@ -39,7 +39,7 @@ float triOffset = 0.0f;
 float triMaxOffset = 0.7f;
 float triIncrement = 0.005f;
 
-void init (GLFWwindow* window) {
+void init () {
 
 	// Utils
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
@@ -79,8 +79,6 @@ void init (GLFWwindow* window) {
 		);
 
 	glEnableVertexAttribArray(0);	// Habilita este atributo
-
-	glBindVertexArray(0);
 }
 
 void display(double currentTime) {
@@ -98,7 +96,7 @@ void display(double currentTime) {
 	if (std::abs(triOffset) >= triMaxOffset)
 		direction = !direction;
 
-	GLuint uniformModel = glGetUniformLocation(renderingProgram, "model");
+	GLuint modelLoc = glGetUniformLocation(renderingProgram, "model");
 
 	//Movimiento Horizontal
 	//@Param_first: Identy Matrix, @Param_second: Translate position
@@ -106,10 +104,10 @@ void display(double currentTime) {
 	//Movimiento Vertical
 	//glm::mat4 t_model = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, triOffset, 0.0f));
 	//Movimiento Diagonal
-	glm::mat4 t_model = glm::translate(glm::mat4(1.0), glm::vec3(-triOffset, triOffset, 0.0f));
+	glm::mat4 t_model = glm::translate(glm::mat4(1.0), glm::vec3(triOffset, triOffset, 0.0f));
 
 	//Usando UniformMatrix
-	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(t_model));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(t_model));
 	//glProgramUniformMatrix4fv(renderingProgram, uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 
 	// Use este VAO e suas configurações
@@ -136,7 +134,7 @@ int main(void) {
     }
     glfwSwapInterval(1);
 
-    init(window);
+    init();
 
     while (!glfwWindowShouldClose(window)) {
         display(glfwGetTime());

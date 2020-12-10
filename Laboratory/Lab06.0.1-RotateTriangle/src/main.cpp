@@ -38,7 +38,7 @@ GLuint m_VAO;
 
 float curAngle = 0.0f;
 
-void init (GLFWwindow* window) {
+void init () {
 
 	// Utils
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
@@ -79,8 +79,6 @@ void init (GLFWwindow* window) {
 		);
 
 	glEnableVertexAttribArray(0);	// Habilita este atributo
-
-	glBindVertexArray(0);
 }
 
 void display(GLFWwindow* window, double currentTime) {
@@ -90,7 +88,7 @@ void display(GLFWwindow* window, double currentTime) {
 
 	glUseProgram(renderingProgram);
 
-	GLuint uniformModel = glGetUniformLocation(renderingProgram, "model");
+	GLuint modelLoc = glGetUniformLocation(renderingProgram, "model");
 
 	curAngle += 0.5f;
 	if (curAngle >= 360)
@@ -99,17 +97,18 @@ void display(GLFWwindow* window, double currentTime) {
 	}
 
 	//Giro Antihorario
+	// Internamente lleva el obj al origen(0,0) despues rota, i.e, R*T(x, y, z)
 	glm::mat4 model = glm::rotate(glm::mat4(1.0), curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 
 	//Usando UniformMatrix
-	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	//Usando ProgramUniform
 	//glProgramUniformMatrix4fv(renderingProgram, uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 
 	// Use este VAO e suas configurações
 	glBindVertexArray(m_VAO);
-	glPointSize(20.0f);
-    glDrawArrays(GL_POINTS, 0, 3);
+	//glPointSize(20.0f);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
 	glBindVertexArray(0);
 	glUseProgram(0);
 }
@@ -131,7 +130,7 @@ int main(void) {
     }
     glfwSwapInterval(1);
 
-    init(window);
+    init();
 
     while (!glfwWindowShouldClose(window)) {
         display(window, glfwGetTime());
