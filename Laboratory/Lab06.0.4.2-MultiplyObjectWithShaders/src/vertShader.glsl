@@ -5,7 +5,7 @@ layout (location=0) in vec3 position;  // coord
 mat4 buildRotateX(float rad);
 mat4 buildRotateY(float rad);
 mat4 buildRotateZ(float rad);
-mat4 buildTranslate(float x, float y, float z);
+mat4 buildTranslate(float dx, float dy, float dz);
 mat4 buildScale(float sx, float sy, float sz);
 const float pi = 3.141592653589793;
 

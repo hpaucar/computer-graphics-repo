@@ -25,15 +25,7 @@ GLfloat* m_Vertices;
 GLuint renderingProgram;
 using namespace std;
 
-// Shader creation helper
-GLuint createShader(GLenum type, const GLchar* src) {
-    GLuint shader = glCreateShader(type);
-    glShaderSource(shader, 1, &src, nullptr);
-    glCompileShader(shader);
-    return shader;
-}
-
-void init (GLFWwindow* window) {
+void init () {
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/geoShader.glsl", "src/fragShader.glsl");
 
 	// Create VBO with point coordinates
@@ -99,7 +91,7 @@ int main(void) {
     }
     glfwSwapInterval(1);
 
-    init(window);
+    init();
 
     while (!glfwWindowShouldClose(window)) {
         display(window, glfwGetTime());

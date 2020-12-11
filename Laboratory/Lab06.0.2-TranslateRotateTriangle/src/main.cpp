@@ -32,7 +32,7 @@ const float toRadians = 3.14159265f / 180.0f;
 GLuint renderingProgram;
 
 GLfloat* m_Vertices;
-GLuint n_Vertices;
+GLuint n_Coords;
 GLuint m_VBO;
 GLuint m_VAO;
 
@@ -57,7 +57,7 @@ void init () {
 		 1.0f, -1.0f, 0.0f,
 		 0.0f,  1.0f, 0.0f
 	};
-	n_Vertices = 9;
+	n_Coords = 9;
 	// Cria um ID na GPU para nosso buffer
 	glGenBuffers(1, &m_VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
@@ -66,7 +66,7 @@ void init () {
 	// Copia esses dados pra essa área de memoria
 	glBufferData(
 			GL_ARRAY_BUFFER,	// TARGET associado ao nosso buffer
-			n_Vertices * sizeof(GLfloat),	// tamanho do buffer
+			n_Coords * sizeof(GLfloat),	// tamanho do buffer
 			m_Vertices,			// Dados a serem copiados pra GPU
 			GL_STATIC_DRAW		// Política de acesso aos dados, para otimização
 		);
@@ -111,16 +111,17 @@ void display(GLFWwindow* window, double currentTime) {
 	// Matriz con elementos de valor 1
 	glm::mat4 model(1.0f);
 	//Movimiento Horizontal
-	//model = glm::translate(model, glm::vec3(triOffset, 0.0f, 0.0f));
+
+	model = glm::translate(model, glm::vec3(triOffset, 0.0f, 0.0f));
 	//Movimiento Vertical
 	//model = glm::translate(model, glm::vec3(0.0f, triOffset, 0.0f));
 	//Movimiento Diagonal
 	//model = glm::translate(model, glm::vec3(triOffset, triOffset, 0.0f));
-	//model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
 
-	glm::mat4 transl = glm::translate(glm::mat4(1.0), glm::vec3(triOffset, 0.0f, 0.0f));
-	glm::mat4 rota = glm::rotate(glm::mat4(1.0),curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
-	model = transl*rota;
+	//glm::mat4 transl = glm::translate(glm::mat4(1.0), glm::vec3(triOffset, 0.0f, 0.0f));
+	//glm::mat4 rota = glm::rotate(glm::mat4(1.0), curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+	//model = transl*rota;
 	//Usando UniformMatrix
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	//Usando ProgramUniform

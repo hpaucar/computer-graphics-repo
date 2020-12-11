@@ -1,6 +1,19 @@
 #version 330
-layout (points) in;
-layout (triangle_strip, max_vertices = 5) out;
+//INPUT layout qualifier
+------------------------- 
+//points: when drawing GL_POINTS primitives (1).
+//lines: when drawing GL_LINES or GL_LINE_STRIP (2).
+//lines_adjacency: GL_LINES_ADJACENCY or GL_LINE_STRIP_ADJACENCY (4).
+//triangles: GL_TRIANGLES, GL_TRIANGLE_STRIP or GL_TRIANGLE_FAN (3).
+//triangles_adjacency : GL_TRIANGLES_ADJACENCY or GL_TRIANGLE_STRIP_ADJACENCY (6).
+layout (points) in; //indica el tipo de primitiva GL_POINTS de entrada
+
+//OUTPUT layout qualifier
+-------------------------
+//points
+//line_strip
+//triangle_strip
+layout (triangle_strip, max_vertices = 5) out; //indica el tipo de primitiva GL_TRIANGLE_STRIP de salida 
 //layout(line_strip, max_vertices = 5) out;
 
 in vec3 vColor[];

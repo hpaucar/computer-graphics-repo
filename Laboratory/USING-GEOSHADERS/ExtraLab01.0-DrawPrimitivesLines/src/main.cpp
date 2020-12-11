@@ -21,24 +21,19 @@
 #include <fstream>
 #include "Utils.h"
 
-GLfloat* m_Vertices;
-GLuint renderingProgram;
 using namespace std;
 
-// Shader creation helper
-GLuint createShader(GLenum type, const GLchar* src) {
-    GLuint shader = glCreateShader(type);
-    glShaderSource(shader, 1, &src, nullptr);
-    glCompileShader(shader);
-    return shader;
-}
+GLfloat* m_Vertices;
+GLuint renderingProgram;
 
-void init (GLFWwindow* window) {
+// Create VAO, VBO with point coordinates
+GLuint vao, vbo;
+
+void init () {
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/geoShader.glsl", "src/fragShader.glsl");
 
-	// Create VBO with point coordinates
-	GLuint vbo;
-	glGenBuffers(1, &vbo);
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
 
     GLfloat points[] = {
     //  Coordinates (2)     Color (3)
@@ -48,22 +43,29 @@ void init (GLFWwindow* window) {
         -0.45f, -0.45f, 1.0f, 1.0f, 0.0f
     };
 
+	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
-
-	// Create VAO
-	GLuint vao;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
 
 	// Specify the layout of the vertex data
 	GLint posAttrib = glGetAttribLocation(renderingProgram, "pos");
 	glEnableVertexAttribArray(posAttrib);
-	glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
+	glVertexAttribPointer(
+			posAttrib,
+			2,
+			GL_FLOAT,
+			GL_FALSE,
+			5 * sizeof(GLfloat),
+			0);
 
 	GLint colAttrib = glGetAttribLocation(renderingProgram, "color");
 	glEnableVertexAttribArray(colAttrib);
-	glVertexAttribPointer(colAttrib, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat),
+	glVertexAttribPointer(
+			colAttrib,
+			3,
+			GL_FLOAT,
+			GL_FALSE,
+			5 * sizeof(GLfloat),
 			(void*) (2 * sizeof(GLfloat)));
 }
 
@@ -93,7 +95,7 @@ int main(void) {
     }
     glfwSwapInterval(1);
 
-    init(window);
+    init();
 
     while (!glfwWindowShouldClose(window)) {
         display(window, glfwGetTime());

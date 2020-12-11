@@ -28,7 +28,7 @@ GLuint m_VAO;
 
 using namespace std;
 
-void init (GLFWwindow* window) {
+void init () {
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
 
 	// Cria um ID na GPU para um array de  buffers
@@ -70,7 +70,7 @@ int main(void) {
 	}
     glfwSwapInterval(1);
     
-    init(window);
+    init();
     
     while (!glfwWindowShouldClose(window)) {
         display(window, glfwGetTime());

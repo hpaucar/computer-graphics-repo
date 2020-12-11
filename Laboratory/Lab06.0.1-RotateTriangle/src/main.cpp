@@ -32,7 +32,7 @@ const float toRadians = 3.14159265f / 180.0f;
 GLuint renderingProgram;
 
 GLfloat* m_Vertices;
-GLuint n_Vertices;
+GLuint n_Coords;
 GLuint m_VBO;
 GLuint m_VAO;
 
@@ -47,24 +47,22 @@ void init () {
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
 
-
     // The first 3 points are to Vertex position of Triangle
 	m_Vertices = new GLfloat[9] {
 		-1.0f, -1.0f, 0.0f,
 		1.0f, -1.0f, 0.0f,
 		0.0f, 1.0f, 0.0f
 	};
-	n_Vertices = 9;
+	n_Coords = 9;
 	// Cria um ID na GPU para nosso buffer
 	glGenBuffers(1, &m_VBO);
-
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 
 	// Reserva memoria na GPU para um TARGET receber dados
 	// Copia esses dados pra essa área de memoria
 	glBufferData(
 			GL_ARRAY_BUFFER,	// TARGET associado ao nosso buffer
-			n_Vertices * sizeof(GLfloat),	// tamanho do buffer
+			n_Coords * sizeof(GLfloat),	// tamanho do buffer
 			m_Vertices,			// Dados a serem copiados pra GPU
 			GL_STATIC_DRAW		// Política de acesso aos dados, para otimização
 		);
@@ -91,14 +89,13 @@ void display(GLFWwindow* window, double currentTime) {
 	GLuint modelLoc = glGetUniformLocation(renderingProgram, "model");
 
 	curAngle += 0.5f;
-	if (curAngle >= 360)
-	{
+	if (curAngle >= 360){
 		curAngle -= 360;
 	}
 
 	//Giro Antihorario
 	// Internamente lleva el obj al origen(0,0) despues rota, i.e, R*T(x, y, z)
-	glm::mat4 model = glm::rotate(glm::mat4(1.0), curAngle * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+	glm::mat4 model = glm::rotate(glm::mat4(1.0), curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 
 	//Usando UniformMatrix
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));

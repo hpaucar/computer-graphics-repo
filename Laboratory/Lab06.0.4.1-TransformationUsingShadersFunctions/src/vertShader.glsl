@@ -6,7 +6,7 @@ uniform float offset;
 mat4 buildRotateX(float rad);
 mat4 buildRotateY(float rad);
 mat4 buildRotateZ(float rad);
-mat4 buildTranslate(float x, float y, float z);
+mat4 buildTranslate(float dx, float dy, float dz);
 mat4 buildScale(float sx, float sy, float sz);
 const float pi = 3.141592653589793;
 
@@ -21,7 +21,7 @@ void main(void) {
 	//gl_Position = localTrans * vec4(position, 1.0);  // right-to-left
 	//gl_Position = localScal * vec4(position, 1.0); 
 	//gl_Position = localRotaZ * vec4(position, 1.0);	    		
-	//gl_Position = localTrans * localScal * vec4(position, 1.0);
+	//gl_Position =  localTrans * localScal * vec4(position, 1.0);
 	//gl_Position = localScal * localTrans * vec4(position, 1.0); // Why is more slow?
 	gl_Position = localTrans * localRotaZ * localScal * vec4(position, 1.0);
 }

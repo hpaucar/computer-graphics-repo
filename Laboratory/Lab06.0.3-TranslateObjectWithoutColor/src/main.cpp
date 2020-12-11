@@ -32,7 +32,7 @@ const float toRadians = 3.14159265f / 180.0f;
 GLuint renderingProgram;
 
 GLfloat* m_Vertices;
-GLuint n_Vertices;
+GLuint n_Coords;
 GLuint m_VBO;
 GLuint m_VAO;
 
@@ -42,7 +42,7 @@ float triMaxOffset = 0.7f;
 float triIncrement = 0.005f;
 float curAngle = 0.0f;
 
-void init (GLFWwindow* window) {
+void init () {
 
 	// Utils
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
@@ -51,29 +51,22 @@ void init (GLFWwindow* window) {
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
 
-
     // The first 3 points are to Vertex position of Triangle
 	m_Vertices = new GLfloat[9] {
 		-1.0f, -1.0f, 0.0f,
 		1.0f, -1.0f, 0.0f,
 		0.0f, 1.0f, 0.0f
 	};
-	n_Vertices = 9;
+	n_Coords = 9;
 	// Cria um ID na GPU para nosso buffer
 	glGenBuffers(1, &m_VBO);
-
-	// Cria um ID na GPU para um array de  buffers
-	glGenVertexArrays(1, &m_VAO);
-
-	glBindVertexArray(m_VAO);
-
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 
 	// Reserva memoria na GPU para um TARGET receber dados
 	// Copia esses dados pra essa área de memoria
 	glBufferData(
 			GL_ARRAY_BUFFER,	// TARGET associado ao nosso buffer
-			n_Vertices * sizeof(GLfloat),	// tamanho do buffer
+			n_Coords * sizeof(GLfloat),	// tamanho do buffer
 			m_Vertices,			// Dados a serem copiados pra GPU
 			GL_STATIC_DRAW		// Política de acesso aos dados, para otimização
 		);
@@ -88,8 +81,6 @@ void init (GLFWwindow* window) {
 		);
 
 	glEnableVertexAttribArray(0);	// Habilita este atributo
-
-	glBindVertexArray(0);
 }
 
 void display(GLFWwindow* window, double currentTime) {
@@ -153,7 +144,7 @@ int main(void) {
     }
     glfwSwapInterval(1);
 
-    init(window);
+    init();
 
     while (!glfwWindowShouldClose(window)) {
         display(window, glfwGetTime());

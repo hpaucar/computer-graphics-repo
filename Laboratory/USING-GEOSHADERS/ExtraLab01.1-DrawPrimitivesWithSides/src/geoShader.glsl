@@ -3,8 +3,8 @@
 layout(points) in;
 layout(line_strip, max_vertices = 64) out;
 
-in vec3 vColor[];
-in float vSides[];
+in vec3 vColor[]; //Posee un unico indice = [0]
+in float vSides[]; //Posee un unico indice = [0]
 out vec3 fColor;
 
 const float PI = 3.1415926;

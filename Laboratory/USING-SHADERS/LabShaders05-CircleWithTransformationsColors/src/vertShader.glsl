@@ -22,7 +22,7 @@ void main(void) {
 	float y_vertex = radius * sin(i * twicePi / numberOfSides);
 	
 	mat4 localRotaZ = buildRotateZ(rotate * twicePi / 360);
-	mat4 localScal = buildScale(0.8, 0.8, 0); //Scale in 25%.
+	mat4 localScal = buildScale(0.8, 0.8, 0); //Scale in 80%.
 
 	//gl_Position = localRotaZ * vec4(x_vertex, y_vertex, 0.0, 1.0);
 	gl_Position = localRotaZ * localScal * vec4(x_vertex, y_vertex, 0.0, 1.0); 		    		

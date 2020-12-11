@@ -32,7 +32,7 @@ const float toRadians = 3.14159265f / 180.0f;
 GLuint renderingProgram;
 
 GLfloat* m_Vertices;
-GLuint n_Vertices;
+GLuint n_Coords;
 GLuint m_VBO;
 GLuint m_VAO;
 
@@ -49,6 +49,7 @@ void init (GLFWwindow* window) {
 
     // Vertex and color of Triangles
 	m_Vertices = new GLfloat[72] {
+		//  VERTEX            COLOR
 		0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,//Triangle 01
 		1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
 		0.5f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f,
@@ -62,7 +63,7 @@ void init (GLFWwindow* window) {
 		1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
 		0.5f, -1.0f, 0.0f, 1.0f, 1.0f, 1.0f
 	};
-	n_Vertices = 72;
+	n_Coords = 72;
 	/*************************************************************/
 	// Cria um ID na GPU para nosso buffer
 	glGenBuffers(1, &m_VBO);
@@ -72,7 +73,7 @@ void init (GLFWwindow* window) {
 	// Copia esses dados pra essa área de memoria
 	glBufferData(
 			GL_ARRAY_BUFFER,	// TARGET associado ao nosso buffer
-			n_Vertices * sizeof(GLfloat),	// tamanho do buffer
+			n_Coords * sizeof(GLfloat),	// tamanho do buffer
 			m_Vertices,			// Dados a serem copiados pra GPU
 			GL_STATIC_DRAW		// Política de acesso aos dados, para otimização
 		);
