@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="cdt.managedbuild.config.gnu.mingw.exe.debug.745512063">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.mingw.exe.debug.745512063" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.PE64" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.mingw.exe.debug.745512063" name="Debug" optionalBuildProperties="" parent="cdt.managedbuild.config.gnu.mingw.exe.debug">
+					<folderInfo id="cdt.managedbuild.config.gnu.mingw.exe.debug.745512063." name="/" resourcePath="">
+						<toolChain id="cdt.managedbuild.toolchain.gnu.mingw.exe.debug.749196041" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.exe.debug">
+							<targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.exe.debug.348452746" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.mingw.exe.debug"/>
+							<builder buildPath="${workspace_loc:/OpenCV-EX1}/Debug" id="cdt.managedbuild.tool.gnu.builder.mingw.base.65558667" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base"/>
+							<tool id="cdt.managedbuild.tool.gnu.assembler.mingw.exe.debug.1464470008" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.exe.debug">
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1226951739" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.archiver.mingw.base.2128462175" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.base"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.1487950042" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug">
+								<option id="gnu.cpp.compiler.mingw.exe.debug.option.optimization.level.1586253933" name="Optimization Level" superClass="gnu.cpp.compiler.mingw.exe.debug.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
+								<option defaultValue="gnu.cpp.compiler.debugging.level.max" id="gnu.cpp.compiler.mingw.exe.debug.option.debugging.level.1590371502" name="Debug Level" superClass="gnu.cpp.compiler.mingw.exe.debug.option.debugging.level" useByScannerDiscovery="false" valueType="enumerated"/>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.833313004" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug.1155875198" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug">
+								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.mingw.exe.debug.option.optimization.level.475426225" name="Optimization Level" superClass="gnu.c.compiler.mingw.exe.debug.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
+								<option defaultValue="gnu.c.debugging.level.max" id="gnu.c.compiler.mingw.exe.debug.option.debugging.level.482679592" name="Debug Level" superClass="gnu.c.compiler.mingw.exe.debug.option.debugging.level" useByScannerDiscovery="false" valueType="enumerated"/>
+								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.101563398" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.debug.1775528453" name="MinGW C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.debug"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.debug.1951529099" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.debug">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.paths.1786460289" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/libs&quot;"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.libs.2053356652" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="glew32s"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="glfw3"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_core450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_highgui450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_calib3d450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_dnn450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_features2d450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_flann450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_gapi450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_imgcodecs450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_imgproc450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_ml450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_objdetect450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_photo450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_stitching450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_video450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_videoio450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="glu32"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="opengl32"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_aruco450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_bgsegm450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_bioinspired450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_ccalib450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_datasets450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_dnn_objdetect450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_dnn_superres450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_dpm450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_face450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_fuzzy450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_hfs450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_img_hash450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_intensity_transform450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_line_descriptor450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_mcc450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_optflow450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_phase_unwrapping450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_plot450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_quality450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_rapid450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_reg450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_rgbd450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_saliency450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_shape450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_stereo450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_structured_light450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_superres450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_surface_matching450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_text450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_tracking450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_videostab450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_xfeatures2d450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_ximgproc450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_xobjdetect450"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="libopencv_xphoto450"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.504984761" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+		<cconfiguration id="cdt.managedbuild.config.gnu.mingw.exe.release.2146437855">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.mingw.exe.release.2146437855" moduleId="org.eclipse.cdt.core.settings" name="Release">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.PE64" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.mingw.exe.release.2146437855" name="Release" optionalBuildProperties="" parent="cdt.managedbuild.config.gnu.mingw.exe.release">
+					<folderInfo id="cdt.managedbuild.config.gnu.mingw.exe.release.2146437855." name="/" resourcePath="">
+						<toolChain id="cdt.managedbuild.toolchain.gnu.mingw.exe.release.573140821" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.exe.release">
+							<targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.exe.release.662402468" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.mingw.exe.release"/>
+							<builder buildPath="${workspace_loc:/OpenCV-EX1}/Release" id="cdt.managedbuild.tool.gnu.builder.mingw.base.1070273143" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base"/>
+							<tool id="cdt.managedbuild.tool.gnu.assembler.mingw.exe.release.1858106954" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.exe.release">
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1444312681" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.archiver.mingw.base.1871388557" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.base"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.release.1675837885" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.release">
+								<option id="gnu.cpp.compiler.mingw.exe.release.option.optimization.level.1003435357" name="Optimization Level" superClass="gnu.cpp.compiler.mingw.exe.release.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
+								<option defaultValue="gnu.cpp.compiler.debugging.level.none" id="gnu.cpp.compiler.mingw.exe.release.option.debugging.level.1135702762" name="Debug Level" superClass="gnu.cpp.compiler.mingw.exe.release.option.debugging.level" useByScannerDiscovery="false" valueType="enumerated"/>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1750407316" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.release.2146428497" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.release">
+								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.mingw.exe.release.option.optimization.level.1047957593" name="Optimization Level" superClass="gnu.c.compiler.mingw.exe.release.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
+								<option defaultValue="gnu.c.debugging.level.none" id="gnu.c.compiler.mingw.exe.release.option.debugging.level.1304187497" name="Debug Level" superClass="gnu.c.compiler.mingw.exe.release.option.debugging.level" useByScannerDiscovery="false" valueType="enumerated"/>
+								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1763549326" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.release.753016411" name="MinGW C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.release"/>
+							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.release.1663971732" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.release">
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.132007979" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="OpenCV-EX1.cdt.managedbuild.target.gnu.mingw.exe.1035583197" name="Executable" projectType="cdt.managedbuild.target.gnu.mingw.exe"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.release.2146437855;cdt.managedbuild.config.gnu.mingw.exe.release.2146437855.;cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.release.2146428497;cdt.managedbuild.tool.gnu.c.compiler.input.1763549326">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.debug.745512063;cdt.managedbuild.config.gnu.mingw.exe.debug.745512063.;cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.1487950042;cdt.managedbuild.tool.gnu.cpp.compiler.input.833313004">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.debug.745512063;cdt.managedbuild.config.gnu.mingw.exe.debug.745512063.;cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.debug.1155875198;cdt.managedbuild.tool.gnu.c.compiler.input.101563398">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.mingw.exe.release.2146437855;cdt.managedbuild.config.gnu.mingw.exe.release.2146437855.;cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.release.1675837885;cdt.managedbuild.tool.gnu.cpp.compiler.input.1750407316">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+</cproject>
