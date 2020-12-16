@@ -105,11 +105,10 @@ void display(GLFWwindow *window, double currentTime) {
 			glm::vec3(0.0f, 0.0f, -(float)currentTime));
 
     //Generate model Matrix - OBJETO
-
     glm::mat4 model = glm::rotate(
     		glm::mat4(1.0f),
-			glm::radians((float)currentTime*2.0f),
-			glm::vec3(0.0f, 1.0f, 0.0f)); //Rotate in direction to axis X, Y or Z
+			glm::radians((float)currentTime*4.0f),
+			glm::vec3(0.0f, 0.0f, 1.0f)); //Rotate in direction to axis X, Y or Z
 
     // pass them to the shaders (3 different ways)
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
