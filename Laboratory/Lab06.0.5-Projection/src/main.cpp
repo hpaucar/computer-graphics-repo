@@ -23,6 +23,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/ext.hpp> // Print GLM matrix.
+#include <glm/gtx/string_cast.hpp>
 #include "Utils.h"
 
 using namespace std;
@@ -37,14 +39,14 @@ int width, height;
 void setupVertices(void) {
 	// Vertex to (1*6) = 2 triangles.
 	float vertexPositions[18] = {
-	   // positions          // texture coords
-	   0.5f,  0.5f, 0.0f, // top right
-	   0.5f, -0.5f, 0.0f, // bottom right
-	  -0.5f, -0.5f, 0.0f, // bottom left
+	   // positions
+	   0.5f,  0.5f, -5.0f, // top right
+	   0.5f, -0.5f, -5.0f, // bottom right
+	  -0.5f, -0.5f, -5.0f, // bottom left
 
-	  -0.5f,  0.5f, 0.0f,  // top left
-	  -0.5f, -0.5f, 0.0f, // bottom left
-	   0.5f,  0.5f, 0.0f // top right
+	  -0.5f,  0.5f, -5.0f, // top left
+	  -0.5f, -0.5f, -5.0f, // bottom left
+	   0.5f,  0.5f, -5.0f  // top right
 	};
 
 	glGenVertexArrays(1, &m_VAO);// creates VAO and returns the integer ID
@@ -74,6 +76,16 @@ void init(GLFWwindow *window) {
 	setupVertices();
 }
 
+void printMatrix(float *matrix){
+	static int a = 0;
+	printf(":>%d \n", a++);
+	for(int i=0; i<4; i++){
+		for(int j=0; j<4; j++){
+			printf("%.f ", *matrix++);
+		}
+		printf("\n");
+	}
+}
 void display(GLFWwindow *window, double currentTime) {
 	glUseProgram(renderingProgram);
 
@@ -84,39 +96,30 @@ void display(GLFWwindow *window, double currentTime) {
 
 	// retrieve the matrix uniform locations
     GLuint projectionLoc  = glGetUniformLocation(renderingProgram, "projection");
-    GLuint viewLoc  = glGetUniformLocation(renderingProgram, "view");
-    GLuint modelLoc = glGetUniformLocation(renderingProgram, "model");
 
 	// get locations of uniforms in the shader program
 	glfwGetFramebufferSize(window, &width, &height);
 	GLfloat aspect = (float) width / (float) height;
-    float FoV = 45;
+    float FoV = (float)((int)currentTime%360);
     // Generates a really hard-to-read matrix, but a normal, standard 4x4 matrix nonetheless
     glm::mat4 projection = glm::perspective(
-        glm::radians(FoV), // The vertical Field of View, in radians: the amount of "zoom". Think "camera lens". Usually between 90° (extra wide) and 30° (quite zoomed in)
-		aspect, // Aspect Ratio. Depends on the size of your window. Notice that 4/3 == 800/600 == 1280/960, sounds familiar ?
-        0.1f,   // Near clipping plane. Keep as big as possible, or you'll get precision issues.
-        100.0f  // Far clipping plane. Keep as little as possible.
+        glm::radians(FoV), 	// The vertical Field of View: in radians: the amount of "zoom". Think "camera lens".
+							//Usually between 90° (extra wide) and 30° (quite zoomed in)
+		aspect, // Aspect Ratio: Depends on the size of your window. Notice that 4/3 == 800/600 == 1280/960, sounds familiar ?
+        0.0f,   // Near: clipping plane. Keep as big as possible, or you'll get precision issues.
+        100.0f  // Far: clipping plane. Keep as little as possible.
     );
-
-    //Generate view Matrix - CAMARA
-    glm::mat4 view = glm::translate(
-    		glm::mat4(1.0f),
-			glm::vec3(0.0f, 0.0f, -(float)currentTime));
-
-    //Generate model Matrix - OBJETO
-
-    glm::mat4 model = glm::rotate(
-    		glm::mat4(1.0f),
-			glm::radians((float)currentTime*2.0f),
-			glm::vec3(0.0f, 1.0f, 0.0f)); //Rotate in direction to axis X, Y or Z
-
-    // pass them to the shaders (3 different ways)
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
+    // printf("\n::> %f", FoV*2);
+    // pass them to the shaders
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, &projection[0][0]);
 
-
+    printf("\n::> %.1f\n", FoV);
+    for(int i=0; i<4; i++){
+		for(int j=0; j<4; j++){
+			printf("%4.2f ", projection[i][j]);
+		}
+		printf("\n");
+	}
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
