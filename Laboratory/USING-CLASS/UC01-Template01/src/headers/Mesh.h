@@ -21,7 +21,7 @@ public:
 	void CreateMesh(GLfloat *vertices, unsigned int *indices, unsigned int numOfVertices, unsigned int numOfIndices);
 	void RenderMesh();
 	void ClearMesh();
-
+	void printVAO_VBO_EBO();
 	~Mesh();
 
 private:

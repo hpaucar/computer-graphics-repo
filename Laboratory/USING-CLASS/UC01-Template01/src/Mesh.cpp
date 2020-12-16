@@ -6,6 +6,7 @@
  */
 
 #include "headers/Mesh.h"
+#include <stdio.h>
 
 Mesh::Mesh()
 {
@@ -69,6 +70,10 @@ void Mesh::ClearMesh()
 	}
 
 	indexCount = 0;
+}
+
+void Mesh::printVAO_VBO_EBO(){
+	printf("Mesh::> (VAO: %d) (VBO: %d) (EBO: %d)\n", VAO, VBO, EBO);
 }
 
 
