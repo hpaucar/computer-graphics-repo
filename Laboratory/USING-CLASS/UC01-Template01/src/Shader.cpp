@@ -99,6 +99,11 @@ GLuint Shader::GetModelLocation()
 	return uniformModel;
 }
 
+GLuint Shader::GetUniformVarLocation(const char *varUniformName)
+{
+	return glGetUniformLocation(shaderID, varUniformName);
+}
+
 void Shader::UseShader()
 {
 	glUseProgram(shaderID);

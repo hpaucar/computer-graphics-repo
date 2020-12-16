@@ -30,6 +30,8 @@ public:
 
 	GLuint GetProjectionLocation();
 	GLuint GetModelLocation();
+	GLuint GetUniformVarLocation(const char *varUniformName);
+
 
 	void UseShader();
 	void ClearShader();

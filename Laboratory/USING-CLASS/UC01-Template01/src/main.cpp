@@ -89,6 +89,9 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		shaderList[0].UseShader();
+		//uniformModel = shaderList[0].GetUniformVarLocation("model");
+		//uniformProjection = shaderList[0].GetUniformVarLocation("projection");
+		//More Optimus
 		uniformModel = shaderList[0].GetModelLocation();
 		uniformProjection = shaderList[0].GetProjectionLocation();
 
