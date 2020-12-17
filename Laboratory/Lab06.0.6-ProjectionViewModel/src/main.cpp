@@ -42,9 +42,9 @@ void setupVertices(void) {
 	   0.5f, -0.5f, 0.0f, // bottom right
 	  -0.5f, -0.5f, 0.0f, // bottom left
 
-	  -0.5f,  0.5f, 0.0f,  // top left
+	  -0.5f,  0.5f, 0.0f, // top left
 	  -0.5f, -0.5f, 0.0f, // bottom left
-	   0.5f,  0.5f, 0.0f // top right
+	   0.5f,  0.5f, 0.0f  // top right
 	};
 
 	glGenVertexArrays(1, &m_VAO);// creates VAO and returns the integer ID
@@ -90,7 +90,7 @@ void display(GLFWwindow *window, double currentTime) {
 	// get locations of uniforms in the shader program
 	glfwGetFramebufferSize(window, &width, &height);
 	GLfloat aspect = (float) width / (float) height;
-    float FoV = 45;
+    float FoV = 50;
     // Generates a really hard-to-read matrix, but a normal, standard 4x4 matrix nonetheless
     glm::mat4 projection = glm::perspective(
         glm::radians(FoV), // The vertical Field of View, in radians: the amount of "zoom". Think "camera lens". Usually between 90° (extra wide) and 30° (quite zoomed in)

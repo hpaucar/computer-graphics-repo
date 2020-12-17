@@ -38,7 +38,7 @@ GLuint m_VAO;
 GLuint mLoc, vLoc, projLoc;
 int width, height;
 float aspect;
-glm::mat4 pMat, vMat, mMat;
+glm::mat4 mProjection, mView, mModel;
 
 void setupVertices(void) {
 	// Vertex to (2*6) = 12 triangles, (12*3)= 36 points, (36*3) = 108 float values.
@@ -80,7 +80,7 @@ void init(GLFWwindow *window) {
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
 	cameraX = 0.0f;
 	cameraY = 0.0f;
-	cameraZ = 8.0f;
+	cameraZ = -8.0f;
 	cubeLocX = 0.0f;
 	cubeLocY = -2.0f;
 	cubeLocZ = 0.0f;
@@ -102,38 +102,36 @@ void display(GLFWwindow *window, double currentTime) {
 	// send matrix data to the uniform variables
 	glfwGetFramebufferSize(window, &width, &height);
 	aspect = (float) width / (float) height;
-	pMat = glm::perspective(1.0472f, aspect, 0.1f, 100.0f); // 1.0472 radians == 60 degrees
 
-	//vMat = glm::translate(
-	//		glm::mat4(1.0f),
-	//		glm::vec3(-cameraX, -cameraY, -cameraZ//-(float)currentTime
-	//		));
+	/* Matrix configuration to view in 3D */
+	mProjection = glm::perspective(
+			glm::radians(60.0f), // FOV 1.0472 radians == 60 degrees
+			aspect, // width/height
+			0.1f, // Near
+			100.0f); // Far
 
 	// Camera matrix
-	vMat = glm::lookAt(
-			glm::vec3(-cameraX, -cameraY, -cameraZ), // Camera position in World Space
+	mView = glm::lookAt(
+			glm::vec3(cameraX, cameraY, cameraZ), // Camera position in World Space
 			glm::vec3(0,0,0), // and looks at the origin
-			glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
-		   );
+			glm::vec3(0,1,0)); // Head is up (set to 0,-1,0 to look upside-down)
 
-	//mMat = glm::translate(
-	//		glm::mat4(1.0f),
-	//		glm::vec3(cubeLocX, cubeLocY, cubeLocZ));
-
-	glm::mat4 mMat1 = glm::rotate(
+	// Model transformation Rotation
+	glm::mat4 tRotat = glm::rotate(
     		glm::mat4(1.0f),
 			glm::radians((float)currentTime*50.0f),
 			glm::vec3(1.0f, 1.0f, 1.0f)); //Rotate in direction to axis X, Y or Z
 
-    glm::mat4 mMat2 = glm::translate(
+	// Model transformation Translate
+    glm::mat4 tTransl = glm::translate(
     			glm::mat4(1.0f),
     			glm::vec3(cubeLocX, cubeLocY, cubeLocZ));
 
-    mMat = mMat2*mMat1;
+    mModel = tTransl*tRotat;
 
-	glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(mMat));
-	glUniformMatrix4fv(vLoc, 1, GL_FALSE, glm::value_ptr(vMat));
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(pMat));
+	glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(mModel));
+	glUniformMatrix4fv(vLoc, 1, GL_FALSE, glm::value_ptr(mView));
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(mProjection));
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);  // makes the 0th buffer "active"
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0); // associates 0th attribute with buffer

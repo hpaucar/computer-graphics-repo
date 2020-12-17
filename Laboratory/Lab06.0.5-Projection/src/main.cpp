@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : Knowing the Camera functions
+// Name        : Knowing the view in OpenGL
 // Professor   : Herminio Paucar
 // Version     :
 // Description : Configure Projection view
@@ -76,16 +76,6 @@ void init(GLFWwindow *window) {
 	setupVertices();
 }
 
-void printMatrix(float *matrix){
-	static int a = 0;
-	printf(":>%d \n", a++);
-	for(int i=0; i<4; i++){
-		for(int j=0; j<4; j++){
-			printf("%.f ", *matrix++);
-		}
-		printf("\n");
-	}
-}
 void display(GLFWwindow *window, double currentTime) {
 	glUseProgram(renderingProgram);
 
@@ -100,7 +90,7 @@ void display(GLFWwindow *window, double currentTime) {
 	// get locations of uniforms in the shader program
 	glfwGetFramebufferSize(window, &width, &height);
 	GLfloat aspect = (float) width / (float) height;
-    float FoV = (float)((int)currentTime%360);
+    float FoV = 50;//(float)((int)currentTime%360);
     // Generates a really hard-to-read matrix, but a normal, standard 4x4 matrix nonetheless
     glm::mat4 projection = glm::perspective(
         glm::radians(FoV), 	// The vertical Field of View: in radians: the amount of "zoom". Think "camera lens".
