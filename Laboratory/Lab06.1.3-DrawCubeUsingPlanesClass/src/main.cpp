@@ -39,36 +39,20 @@ static const char* vShader = "src/shaders/vertShader.glsl";
 // Fragment Shader
 static const char* fShader = "src/shaders/fragShader.glsl";
 
-void CreateObjects()
-{
-	unsigned int indices[] = {
-		0, 1, 2,
-		2, 3, 0,
-		1, 5, 6,
-		6, 2, 1,
-		6, 5, 4,
-		7, 3, 6,
-		3, 2, 6,
-		3, 2, 7,
-		4, 0, 3,
-		4, 3, 7,
-		4, 5, 6,
-		6, 7, 4
-	};
+void CreateObjects(){
 
 	float vertices[] = {
 	 -1.0f, -1.0f,  1.0f,//P0
 	  1.0f, -1.0f,  1.0f,//P1
 	  1.0f,  1.0f,  1.0f,//P2
+
+	  1.0f,  1.0f,  1.0f,//P2
 	 -1.0f,  1.0f,  1.0f,//P3
-	 -1.0f, -1.0f, -1.0f,//P4
-	  1.0f, -1.0f, -1.0f,//P5
-	  1.0f,  1.0f, -1.0f,//P6
-	 -1.0f,  1.0f, -1.0f //P7
+	 -1.0f, -1.0f,  1.0f //P0
 	};
 
 	Mesh *obj1 = new Mesh();
-	obj1->CreateMesh(vertices, indices, 36, 36);
+	obj1->CreateMesh(vertices, 18);
 	meshList.push_back(obj1);
 
 	cameraX = 0.0f;
@@ -143,7 +127,7 @@ int main() {
 		glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(mModel));
 		glUniformMatrix4fv(vLoc, 1, GL_FALSE, glm::value_ptr(mView));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(mProjection));
-		meshList[0]->RenderMesh();
+		meshList[0]->RenderMeshMultiplyInstance(5);
 
 		glUseProgram(0);
 		mainWindow.swapBuffers();
