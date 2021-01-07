@@ -143,7 +143,7 @@ int main() {
 		glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(mModel));
 		glUniformMatrix4fv(vLoc, 1, GL_FALSE, glm::value_ptr(mView));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(mProjection));
-		meshList[0]->RenderMesh();
+		meshList[0]->RenderMeshWithElementInstance();
 
 		glUseProgram(0);
 		mainWindow.swapBuffers();

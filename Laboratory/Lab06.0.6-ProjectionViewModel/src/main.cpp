@@ -2,7 +2,7 @@
 // Name        : Knowing the Camera functions
 // Professor   : Herminio Paucar
 // Version     :
-// Description : Configure Projection view
+// Description : Configure Projection View Model
 //============================================================================
 
 // Include standard headers
@@ -35,7 +35,7 @@ GLuint m_VAO;
 int width, height;
 
 void setupVertices(void) {
-	// Vertex to (1*6) = 2 triangles.
+	// Cuadrado: Vertex to (1*6) = 2 triangles.
 	float vertexPositions[18] = {
 	   // positions          // texture coords
 	   0.5f,  0.5f, 0.0f, // top right
@@ -69,8 +69,9 @@ void setupVertices(void) {
 	glEnableVertexAttribArray(0);	// Habilita este atributo Layout 0
 }
 
-void init(GLFWwindow *window) {
-	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
+void init() {
+	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl",
+			"src/fragShader.glsl");
 	setupVertices();
 }
 
@@ -79,8 +80,7 @@ void display(GLFWwindow *window, double currentTime) {
 
     // Clear the screen to black
     glClearColor(0.02f, 0.00f, 0.15f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// retrieve the matrix uniform locations
     GLuint projectionLoc  = glGetUniformLocation(renderingProgram, "projection");
@@ -96,8 +96,7 @@ void display(GLFWwindow *window, double currentTime) {
         glm::radians(FoV), // The vertical Field of View, in radians: the amount of "zoom". Think "camera lens". Usually between 90° (extra wide) and 30° (quite zoomed in)
 		aspect, // Aspect Ratio. Depends on the size of your window. Notice that 4/3 == 800/600 == 1280/960, sounds familiar ?
         0.1f,   // Near clipping plane. Keep as big as possible, or you'll get precision issues.
-        100.0f  // Far clipping plane. Keep as little as possible.
-    );
+        100.0f ); // Far clipping plane. Keep as little as possible.
 
     //Generate view Matrix - CAMARA
     glm::mat4 view = glm::translate(
@@ -142,7 +141,7 @@ int main(void) {
 	}
 	glfwSwapInterval(1);
 
-	init(window);
+	init();
 
 	while (!glfwWindowShouldClose(window)) {
 		display(window, glfwGetTime());

@@ -80,7 +80,7 @@ void init(GLFWwindow *window) {
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
 	cameraX = 0.0f;
 	cameraY = 0.0f;
-	cameraZ = -8.0f;
+	cameraZ = -10.0f;
 	cubeLocX = 0.0f;
 	cubeLocY = -2.0f;
 	cubeLocZ = 0.0f;
@@ -91,8 +91,7 @@ void display(GLFWwindow *window, double currentTime) {
 	glUseProgram(renderingProgram);
     // Clear the screen to black
     glClearColor(0.02f, 0.00f, 0.15f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// get locations of uniforms in the shader program
 	mLoc = glGetUniformLocation(renderingProgram, "m_matrix");

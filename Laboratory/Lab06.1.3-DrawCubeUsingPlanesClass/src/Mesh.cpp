@@ -59,7 +59,7 @@ void Mesh::CreateMesh(GLfloat *vertices, unsigned int numOfCoordinates)
 	glBindVertexArray(0);
 }
 
-void Mesh::RenderMesh()
+void Mesh::RenderMeshWithElementInstance()
 {
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);

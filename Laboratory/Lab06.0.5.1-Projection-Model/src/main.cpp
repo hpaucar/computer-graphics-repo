@@ -54,6 +54,7 @@ float minSize = 0.1f;
 glm::mat4 projection;
 
 void setupVertices() {
+	// Figura Tetraedro
 	unsigned int indices[] = {
 			0, 3, 1,
 			1, 3, 2,
@@ -87,42 +88,51 @@ void setupVertices() {
 	glBindVertexArray(0);
 }
 
-void init() {
-	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
-	setupVertices();
+void calculateProjection(GLFWwindow *mainWindow) {
+	// Get Buffer Size information
+	int bufferWidth, bufferHeight;
+	glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
+	// Setup Viewport size
+	glViewport(0, 0, bufferWidth, bufferHeight);
+	GLfloat aspect = (GLfloat) bufferWidth / (GLfloat) bufferHeight;
+	projection = glm::perspective(glm::radians(50.0f), aspect, 0.1f, 100.0f);
 }
 
-void display(GLFWwindow *mainWindow) {
+void init(GLFWwindow *mainWindow) {
+	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
+	setupVertices();
+	calculateProjection(mainWindow);
+}
+
+void display() {
 	// Clear window
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glUseProgram(renderingProgram);
 
-	if (direction) {
+	// control in horizontal direction
+	if (direction)
 		triOffset += triIncrement;
-	} else {
+	else
 		triOffset -= triIncrement;
-	}
 
-	if (abs(triOffset) >= triMaxOffset) {
+	if (abs(triOffset) >= triMaxOffset)
 		direction = !direction;
-	}
 
+	// control in angle 360
 	curAngle += 0.01f;
-	if (curAngle >= 360) {
+	if (curAngle >= 360)
 		curAngle -= 360;
-	}
 
-	if (direction) {
+	if (direction)
 		curSize += 0.0001f;
-	} else {
+	else
 		curSize -= 0.0001f;
-	}
 
-	if (curSize >= maxSize || curSize <= minSize) {
+	if (curSize >= maxSize || curSize <= minSize)
 		sizeDirection = !sizeDirection;
-	}
+
 
 	uniformModel = glGetUniformLocation(renderingProgram, "model");
 	uniformProjection = glGetUniformLocation(renderingProgram, "projection");
@@ -135,6 +145,8 @@ void display(GLFWwindow *mainWindow) {
 
 	glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+
+	glEnable(GL_DEPTH_TEST);
 
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
@@ -183,21 +195,14 @@ int main() {
 		return 1;
 	}
 
-	init();
-	// Get Buffer Size information
-	int bufferWidth, bufferHeight;
-	glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
-	glEnable(GL_DEPTH_TEST);
-	// Setup Viewport size
-	glViewport(0, 0, bufferWidth, bufferHeight);
-	GLfloat aspect = (GLfloat) bufferWidth / (GLfloat) bufferHeight;
-	projection = glm::perspective(glm::radians(50.0f), aspect, 0.1f, 100.0f);
+	init(mainWindow);
+
 
 	// Loop until window closed
 	while (!glfwWindowShouldClose(mainWindow)) {
 		// Get + Handle user input events
 		glfwPollEvents();
-		display(mainWindow);
+		display();
 		glfwSwapBuffers(mainWindow);
 	}
 

@@ -71,7 +71,7 @@ void setupVertices(void) {
 	glEnableVertexAttribArray(0);	// Habilita este atributo Layout 0
 }
 
-void init(GLFWwindow *window) {
+void init() {
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
 	setupVertices();
 }
@@ -89,10 +89,11 @@ void display(GLFWwindow *window, double currentTime) {
 
 	// get locations of uniforms in the shader program
 	glfwGetFramebufferSize(window, &width, &height);
+
 	GLfloat aspect = (float) width / (float) height;
-    float FoV = 50;//(float)((int)currentTime%360);
+    float FoV = 50;//(float)((int)currentTime%360); // Field of View(FoV)
     // Generates a really hard-to-read matrix, but a normal, standard 4x4 matrix nonetheless
-    glm::mat4 projection = glm::perspective(
+    glm::mat4 matrix_projection = glm::perspective(
         glm::radians(FoV), 	// The vertical Field of View: in radians: the amount of "zoom". Think "camera lens".
 							//Usually between 90° (extra wide) and 30° (quite zoomed in)
 		aspect, // Aspect Ratio: Depends on the size of your window. Notice that 4/3 == 800/600 == 1280/960, sounds familiar ?
@@ -101,15 +102,16 @@ void display(GLFWwindow *window, double currentTime) {
     );
     // printf("\n::> %f", FoV*2);
     // pass them to the shaders
-    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, &projection[0][0]);
+    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, &matrix_projection[0][0]);
 
-    printf("\n::> %.1f\n", FoV);
+   /* printf("\n::> %.1f\n", FoV);
     for(int i=0; i<4; i++){
 		for(int j=0; j<4; j++){
 			printf("%4.2f ", projection[i][j]);
 		}
 		printf("\n");
 	}
+	*/
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 
@@ -137,7 +139,7 @@ int main(void) {
 	}
 	glfwSwapInterval(1);
 
-	init(window);
+	init();
 
 	while (!glfwWindowShouldClose(window)) {
 		display(window, glfwGetTime());

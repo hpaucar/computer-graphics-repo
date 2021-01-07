@@ -21,7 +21,7 @@ public:
 	void CreateMesh(GLfloat *vertices, unsigned int *indices, unsigned int numOfVertices, unsigned int numOfIndices);
 	void CreateMesh(GLfloat *vertices, unsigned int numOfVertices);
 
-	void RenderMesh();
+	void RenderMeshWithElementInstance();
 	void RenderMeshMultiplyInstance(GLuint instances);
 	void ClearMesh();
 	void printVAO_VBO_EBO();
