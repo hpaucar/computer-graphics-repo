@@ -93,10 +93,10 @@ void display(GLFWwindow *window, double currentTime) {
     float FoV = 50;
     // Generates a really hard-to-read matrix, but a normal, standard 4x4 matrix nonetheless
     glm::mat4 projection = glm::perspective(
-        glm::radians(FoV), // The vertical Field of View, in radians: the amount of "zoom". Think "camera lens". Usually between 90° (extra wide) and 30° (quite zoomed in)
-		aspect, // Aspect Ratio. Depends on the size of your window. Notice that 4/3 == 800/600 == 1280/960, sounds familiar ?
-        0.1f,   // Near clipping plane. Keep as big as possible, or you'll get precision issues.
-        100.0f ); // Far clipping plane. Keep as little as possible.
+			glm::radians(FoV), // The vertical Field of View, in radians: the amount of "zoom". Think "camera lens". Usually between 90° (extra wide) and 30° (quite zoomed in)
+			aspect, // Aspect Ratio. Depends on the size of your window. Notice that 4/3 == 800/600 == 1280/960, sounds familiar ?
+			0.1f,   // Near clipping plane. Keep as big as possible, or you'll get precision issues.
+			100.0f); // Far clipping plane. Keep as little as possible.
 
     //Generate view Matrix - CAMARA
     glm::mat4 view = glm::translate(

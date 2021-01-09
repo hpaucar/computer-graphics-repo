@@ -77,7 +77,8 @@ void setupVertices(void) {
 }
 
 void init(GLFWwindow *window) {
-	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
+	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl",
+			"src/fragShader.glsl");
 	cameraX = 0.0f;
 	cameraY = 0.0f;
 	cameraZ = -10.0f;
@@ -111,9 +112,9 @@ void display(GLFWwindow *window, double currentTime) {
 
 	// Camera matrix
 	mView = glm::lookAt(
-			glm::vec3(cameraX, cameraY, cameraZ), // Camera position in World Space
-			glm::vec3(0,0,0), // and looks at the origin
-			glm::vec3(0,1,0)); // Head is up (set to 0,-1,0 to look upside-down)
+				glm::vec3(cameraX, cameraY, cameraZ), // Camera position in World Space
+				glm::vec3(0,0,0), // and looks at the origin
+				glm::vec3(0,1,0)); // Head is up (set to 0,-1,0 to look upside-down)
 
 	// Model transformation Rotation
 	glm::mat4 tRotat = glm::rotate(

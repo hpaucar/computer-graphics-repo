@@ -81,17 +81,16 @@ void display(GLFWwindow *window, double currentTime) {
 
     // Clear the screen to black
     glClearColor(0.02f, 0.00f, 0.15f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// retrieve the matrix uniform locations
     GLuint projectionLoc  = glGetUniformLocation(renderingProgram, "projection");
 
-	// get locations of uniforms in the shader program
+	// get sizes of windows.
 	glfwGetFramebufferSize(window, &width, &height);
 
 	GLfloat aspect = (float) width / (float) height;
-    float FoV = 50;//(float)((int)currentTime%360); // Field of View(FoV)
+    float FoV = (float)((int)currentTime%360); // Field of View(FoV)
     // Generates a really hard-to-read matrix, but a normal, standard 4x4 matrix nonetheless
     glm::mat4 matrix_projection = glm::perspective(
         glm::radians(FoV), 	// The vertical Field of View: in radians: the amount of "zoom". Think "camera lens".

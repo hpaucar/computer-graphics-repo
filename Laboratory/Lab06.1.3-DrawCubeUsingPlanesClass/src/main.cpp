@@ -33,12 +33,6 @@ std::vector<Shader> shaderList;
 float cameraX, cameraY, cameraZ;
 float cubeLocX, cubeLocY, cubeLocZ;
 
-// Vertex Shader
-static const char* vShader = "src/shaders/vertShader.glsl";
-
-// Fragment Shader
-static const char* fShader = "src/shaders/fragShader.glsl";
-
 void CreateObjects(){
 
 	float vertices[] = {
@@ -66,7 +60,8 @@ void CreateObjects(){
 void CreateShaders()
 {
 	Shader *shader1 = new Shader();
-	shader1->CreateFromFiles(vShader, fShader);
+	shader1->CreateFromFiles("src/shaders/vertShader.glsl",
+								"src/shaders/fragShader.glsl");
 	shaderList.push_back(*shader1);
 }
 
@@ -105,6 +100,10 @@ int main() {
 				0.1f, // Near
 				100.0f); // Far
 
+		/* Camera matrix configuration position, verificar con la rotación del propio objeto y camara*/
+		const float radius = 10.0f;
+		//cameraX = sin(glfwGetTime()) * radius;
+		//cameraZ = cos(glfwGetTime()) * radius;
 		// Camera matrix
 		mView = glm::lookAt(
 				glm::vec3(cameraX, cameraY, cameraZ), // Camera position in World Space
@@ -115,7 +114,7 @@ int main() {
 		glm::mat4 tRotat = glm::rotate(
 	    		glm::mat4(1.0f),
 				glm::radians((float)glfwGetTime()*50.0f),
-				glm::vec3(1.0f, 1.0f, 1.0f)); //Rotate in direction to axis X, Y or Z
+				glm::vec3(0.0f, 1.0f, 0.0f)); //Rotate in direction to axis X, Y or Z
 
 		// Model transformation Translate
 	    glm::mat4 tTransl = glm::translate(
